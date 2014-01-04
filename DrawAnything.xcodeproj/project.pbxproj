@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A16B37091877BE2F00A33BB0 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = A16B37081877BE2F00A33BB0 /* Word.m */; };
 		A1920044186820E000934DC1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1920043186820E000934DC1 /* Foundation.framework */; };
 		A1920046186820E000934DC1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1920045186820E000934DC1 /* CoreGraphics.framework */; };
 		A1920048186820E000934DC1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1920047186820E000934DC1 /* UIKit.framework */; };
@@ -14,13 +15,25 @@
 		A1920050186820E000934DC1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A192004F186820E000934DC1 /* main.m */; };
 		A1920054186820E000934DC1 /* DATAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A1920053186820E000934DC1 /* DATAppDelegate.m */; };
 		A1920057186820E000934DC1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1920055186820E000934DC1 /* Main.storyboard */; };
-		A192005A186820E000934DC1 /* DATViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A1920059186820E000934DC1 /* DATViewController.m */; };
 		A192005C186820E000934DC1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A192005B186820E000934DC1 /* Images.xcassets */; };
 		A1920063186820E000934DC1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1920062186820E000934DC1 /* XCTest.framework */; };
 		A1920064186820E000934DC1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1920043186820E000934DC1 /* Foundation.framework */; };
 		A1920065186820E000934DC1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1920047186820E000934DC1 /* UIKit.framework */; };
 		A192006D186820E000934DC1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A192006B186820E000934DC1 /* InfoPlist.strings */; };
 		A192006F186820E000934DC1 /* DrawAnythingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A192006E186820E000934DC1 /* DrawAnythingTests.m */; };
+		A192007B186972F100934DC1 /* Pen.m in Sources */ = {isa = PBXBuildFile; fileRef = A192007A186972F100934DC1 /* Pen.m */; };
+		A192007E186973D500934DC1 /* Eraser.m in Sources */ = {isa = PBXBuildFile; fileRef = A192007D186973D500934DC1 /* Eraser.m */; };
+		A192008118697C1900934DC1 /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A192008018697C1900934DC1 /* GalleryViewController.m */; };
+		A192008418697C4A00934DC1 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A192008318697C4A00934DC1 /* PlayerViewController.m */; };
+		A192008718697CDF00934DC1 /* DrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A192008618697CDF00934DC1 /* DrawingViewController.m */; };
+		A192008918697EAD00934DC1 /* WordsLib.plist in Resources */ = {isa = PBXBuildFile; fileRef = A192008818697EAD00934DC1 /* WordsLib.plist */; };
+		A192008C18697F6F00934DC1 /* DrawingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = A192008B18697F6F00934DC1 /* DrawingRecord.m */; };
+		A1A5B1D21875437900AB2E26 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A1A5B1D01875437900AB2E26 /* Model.xcdatamodeld */; };
+		A1A5B1DC18754F8800AB2E26 /* DrawingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A5B1DB18754F8800AB2E26 /* DrawingRecord.m */; };
+		A1A5B1DF18754F8900AB2E26 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A5B1DE18754F8900AB2E26 /* Word.m */; };
+		A1A91283186F0B80006CEE8D /* WordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A91282186F0B80006CEE8D /* WordManager.m */; };
+		A1A91286186F13AA006CEE8D /* WordHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A91285186F13AA006CEE8D /* WordHelper.m */; };
+		A1FD64F8186B10A70057978D /* WordLib.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FD64F7186B10A70057978D /* WordLib.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A16B37071877BE2F00A33BB0 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
+		A16B37081877BE2F00A33BB0 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
 		A1920040186820E000934DC1 /* DrawAnything.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawAnything.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1920043186820E000934DC1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A1920045186820E000934DC1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -45,14 +60,36 @@
 		A1920052186820E000934DC1 /* DATAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DATAppDelegate.h; sourceTree = "<group>"; };
 		A1920053186820E000934DC1 /* DATAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DATAppDelegate.m; sourceTree = "<group>"; };
 		A1920056186820E000934DC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		A1920058186820E000934DC1 /* DATViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DATViewController.h; sourceTree = "<group>"; };
-		A1920059186820E000934DC1 /* DATViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DATViewController.m; sourceTree = "<group>"; };
 		A192005B186820E000934DC1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A1920061186820E000934DC1 /* DrawAnythingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawAnythingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1920062186820E000934DC1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		A192006A186820E000934DC1 /* DrawAnythingTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DrawAnythingTests-Info.plist"; sourceTree = "<group>"; };
 		A192006C186820E000934DC1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A192006E186820E000934DC1 /* DrawAnythingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrawAnythingTests.m; sourceTree = "<group>"; };
+		A1920079186972F100934DC1 /* Pen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pen.h; sourceTree = "<group>"; };
+		A192007A186972F100934DC1 /* Pen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pen.m; sourceTree = "<group>"; };
+		A192007C186973D500934DC1 /* Eraser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Eraser.h; sourceTree = "<group>"; };
+		A192007D186973D500934DC1 /* Eraser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Eraser.m; sourceTree = "<group>"; };
+		A192007F18697C1900934DC1 /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryViewController.h; sourceTree = "<group>"; };
+		A192008018697C1900934DC1 /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewController.m; sourceTree = "<group>"; };
+		A192008218697C4A00934DC1 /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
+		A192008318697C4A00934DC1 /* PlayerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayerViewController.m; sourceTree = "<group>"; };
+		A192008518697CDF00934DC1 /* DrawingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingViewController.h; sourceTree = "<group>"; };
+		A192008618697CDF00934DC1 /* DrawingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingViewController.m; sourceTree = "<group>"; };
+		A192008818697EAD00934DC1 /* WordsLib.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WordsLib.plist; sourceTree = "<group>"; };
+		A192008A18697F6F00934DC1 /* DrawingRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingRecord.h; sourceTree = "<group>"; };
+		A192008B18697F6F00934DC1 /* DrawingRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingRecord.m; sourceTree = "<group>"; };
+		A1A5B1D11875437900AB2E26 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		A1A5B1DA18754F8800AB2E26 /* DrawingRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawingRecord.h; path = DrawAnything/DrawingRecord.h; sourceTree = "<group>"; };
+		A1A5B1DB18754F8800AB2E26 /* DrawingRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawingRecord.m; path = DrawAnything/DrawingRecord.m; sourceTree = "<group>"; };
+		A1A5B1DD18754F8900AB2E26 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Word.h; path = DrawAnything/Word.h; sourceTree = "<group>"; };
+		A1A5B1DE18754F8900AB2E26 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Word.m; path = DrawAnything/Word.m; sourceTree = "<group>"; };
+		A1A91281186F0B80006CEE8D /* WordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordManager.h; sourceTree = "<group>"; };
+		A1A91282186F0B80006CEE8D /* WordManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordManager.m; sourceTree = "<group>"; };
+		A1A91284186F13AA006CEE8D /* WordHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordHelper.h; sourceTree = "<group>"; };
+		A1A91285186F13AA006CEE8D /* WordHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordHelper.m; sourceTree = "<group>"; };
+		A1FD64F6186B10A70057978D /* WordLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordLib.h; sourceTree = "<group>"; };
+		A1FD64F7186B10A70057978D /* WordLib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordLib.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +120,10 @@
 			isa = PBXGroup;
 			children = (
 				A1920049186820E000934DC1 /* DrawAnything */,
+				A1A5B1DD18754F8900AB2E26 /* Word.h */,
+				A1A5B1DE18754F8900AB2E26 /* Word.m */,
+				A1A5B1DA18754F8800AB2E26 /* DrawingRecord.h */,
+				A1A5B1DB18754F8800AB2E26 /* DrawingRecord.m */,
 				A1920068186820E000934DC1 /* DrawAnythingTests */,
 				A1920042186820E000934DC1 /* Frameworks */,
 				A1920041186820E000934DC1 /* Products */,
@@ -114,10 +155,10 @@
 			children = (
 				A1920052186820E000934DC1 /* DATAppDelegate.h */,
 				A1920053186820E000934DC1 /* DATAppDelegate.m */,
-				A1920055186820E000934DC1 /* Main.storyboard */,
-				A1920058186820E000934DC1 /* DATViewController.h */,
-				A1920059186820E000934DC1 /* DATViewController.m */,
+				A1A91280186E7D1A006CEE8D /* View Controllers */,
+				A19200781868273F00934DC1 /* Model */,
 				A192005B186820E000934DC1 /* Images.xcassets */,
+				A192008D186981CE00934DC1 /* Extras */,
 				A192004A186820E000934DC1 /* Supporting Files */,
 			);
 			path = DrawAnything;
@@ -126,10 +167,12 @@
 		A192004A186820E000934DC1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				A1920055186820E000934DC1 /* Main.storyboard */,
 				A192004B186820E000934DC1 /* DrawAnything-Info.plist */,
 				A192004C186820E000934DC1 /* InfoPlist.strings */,
 				A192004F186820E000934DC1 /* main.m */,
 				A1920051186820E000934DC1 /* DrawAnything-Prefix.pch */,
+				A192008818697EAD00934DC1 /* WordsLib.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -150,6 +193,56 @@
 				A192006B186820E000934DC1 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A19200781868273F00934DC1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A1920079186972F100934DC1 /* Pen.h */,
+				A192007A186972F100934DC1 /* Pen.m */,
+				A192007C186973D500934DC1 /* Eraser.h */,
+				A192007D186973D500934DC1 /* Eraser.m */,
+				A1FD64F6186B10A70057978D /* WordLib.h */,
+				A1FD64F7186B10A70057978D /* WordLib.m */,
+				A1A91281186F0B80006CEE8D /* WordManager.h */,
+				A1A91282186F0B80006CEE8D /* WordManager.m */,
+				A1A91284186F13AA006CEE8D /* WordHelper.h */,
+				A1A91285186F13AA006CEE8D /* WordHelper.m */,
+				A1A5B1D918754E2600AB2E26 /* coreDataModel */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		A192008D186981CE00934DC1 /* Extras */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Extras;
+			sourceTree = "<group>";
+		};
+		A1A5B1D918754E2600AB2E26 /* coreDataModel */ = {
+			isa = PBXGroup;
+			children = (
+				A1A5B1D01875437900AB2E26 /* Model.xcdatamodeld */,
+				A16B37071877BE2F00A33BB0 /* Word.h */,
+				A16B37081877BE2F00A33BB0 /* Word.m */,
+				A192008A18697F6F00934DC1 /* DrawingRecord.h */,
+				A192008B18697F6F00934DC1 /* DrawingRecord.m */,
+			);
+			name = coreDataModel;
+			sourceTree = "<group>";
+		};
+		A1A91280186E7D1A006CEE8D /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				A192007F18697C1900934DC1 /* GalleryViewController.h */,
+				A192008018697C1900934DC1 /* GalleryViewController.m */,
+				A192008218697C4A00934DC1 /* PlayerViewController.h */,
+				A192008318697C4A00934DC1 /* PlayerViewController.m */,
+				A192008518697CDF00934DC1 /* DrawingViewController.h */,
+				A192008618697CDF00934DC1 /* DrawingViewController.m */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,6 +324,7 @@
 			files = (
 				A192005C186820E000934DC1 /* Images.xcassets in Resources */,
 				A192004E186820E000934DC1 /* InfoPlist.strings in Resources */,
+				A192008918697EAD00934DC1 /* WordsLib.plist in Resources */,
 				A1920057186820E000934DC1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,8 +345,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1920054186820E000934DC1 /* DATAppDelegate.m in Sources */,
+				A192008C18697F6F00934DC1 /* DrawingRecord.m in Sources */,
+				A1A5B1D21875437900AB2E26 /* Model.xcdatamodeld in Sources */,
+				A192008718697CDF00934DC1 /* DrawingViewController.m in Sources */,
+				A192008418697C4A00934DC1 /* PlayerViewController.m in Sources */,
+				A16B37091877BE2F00A33BB0 /* Word.m in Sources */,
+				A1A5B1DC18754F8800AB2E26 /* DrawingRecord.m in Sources */,
+				A1FD64F8186B10A70057978D /* WordLib.m in Sources */,
 				A1920050186820E000934DC1 /* main.m in Sources */,
-				A192005A186820E000934DC1 /* DATViewController.m in Sources */,
+				A192007E186973D500934DC1 /* Eraser.m in Sources */,
+				A1A91286186F13AA006CEE8D /* WordHelper.m in Sources */,
+				A1A91283186F0B80006CEE8D /* WordManager.m in Sources */,
+				A1A5B1DF18754F8900AB2E26 /* Word.m in Sources */,
+				A192007B186972F100934DC1 /* Pen.m in Sources */,
+				A192008118697C1900934DC1 /* GalleryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,6 +567,7 @@
 				A1920074186820E000934DC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		A1920075186820E000934DC1 /* Build configuration list for PBXNativeTarget "DrawAnythingTests" */ = {
 			isa = XCConfigurationList;
@@ -469,8 +576,22 @@
 				A1920077186820E000934DC1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A1A5B1D01875437900AB2E26 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A1A5B1D11875437900AB2E26 /* Model.xcdatamodel */,
+			);
+			currentVersion = A1A5B1D11875437900AB2E26 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A1920038186820E000934DC1 /* Project object */;
 }

@@ -8,11 +8,18 @@
 
 #import "DATAppDelegate.h"
 
+@interface DATAppDelegate()
+
+@property (strong,readwrite) UIDocument *document;
+
+@end
+
 @implementation DATAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [self setUpWordLib] ;
     return YES;
 }
 							
@@ -42,5 +49,33 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+- (void)setUpWordLib
+{    
+    //  [self applicationDirectory];
+    NSArray* searchPath = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+    NSString* documentFilePath = ([searchPath count] > 0) ? [searchPath objectAtIndex:0] : nil;
+    NSString* wordLibPath = [documentFilePath stringByAppendingString:@"wordLibAtDoc.plist"];
+    
+    NSFileManager* fm = [NSFileManager defaultManager];
+    BOOL wordLibFileIsInDocument = [fm fileExistsAtPath:wordLibPath];
+    if (!wordLibFileIsInDocument) {
+        // copy the wordLib in supporting folder to document folder;
+        NSURL* supportingFilePath = [[NSBundle mainBundle] URLForResource:@"WordLib" withExtension:@"plist"];
+        NSData* sourceDataOfwordLibInSupportingFolder = [NSData dataWithContentsOfURL:supportingFilePath];
+        
+        [fm createFileAtPath:@"wordLibAtDoc.plist" contents:sourceDataOfwordLibInSupportingFolder attributes:nil];
+        
+    }
+    
+    // create playlist file if it does not exit
+    NSString* recordPlayListPath = [documentFilePath stringByAppendingString:@"recordPlayListPath"];
+    if (![fm fileExistsAtPath:recordPlayListPath]) {
+        [fm createFileAtPath:@"recordPlayList.plist" contents:nil attributes:nil];
+        
+    }
+    
+}
+
 
 @end

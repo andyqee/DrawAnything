@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>WordList</key>
+	<array>
+		<string>apple</string>
+		<string>bus</string>
+		<string>car</string>
+		<string>desktop</string>
+		<string>eye</string>
+		<string>fish</string>
+		<string>gun</string>
+		<string>hehe</string>
+		<string>iPad</string>
+		<string>jeep</string>
+		<string>king</string>
+		<string>love</string>
+	</array>
+</dict>
+</plist>
