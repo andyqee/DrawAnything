@@ -19,6 +19,7 @@
 
 @interface DrawingViewController : PlayerViewController
 
+
 @property (nonatomic, weak) id <DrawingViewControllerDelegate> delegate;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 

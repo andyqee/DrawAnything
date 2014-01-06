@@ -158,6 +158,7 @@
 				A1A91280186E7D1A006CEE8D /* View Controllers */,
 				A19200781868273F00934DC1 /* Model */,
 				A192005B186820E000934DC1 /* Images.xcassets */,
+				A19CEFAE187AB15400A3E726 /* Image */,
 				A192008D186981CE00934DC1 /* Extras */,
 				A192004A186820E000934DC1 /* Supporting Files */,
 			);
@@ -218,6 +219,13 @@
 			children = (
 			);
 			name = Extras;
+			sourceTree = "<group>";
+		};
+		A19CEFAE187AB15400A3E726 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Image;
 			sourceTree = "<group>";
 		};
 		A1A5B1D918754E2600AB2E26 /* coreDataModel */ = {
