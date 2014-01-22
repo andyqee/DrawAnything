@@ -10,7 +10,7 @@
 #import "DrawingViewController.h"
 
 
-@interface GalleryViewController : UITableViewController< NSFetchedResultsControllerDelegate,DrawingViewControllerDelegate >
+@interface GalleryViewController : UITableViewController <NSFetchedResultsControllerDelegate, DrawingViewControllerDelegate>
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 

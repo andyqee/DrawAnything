@@ -16,15 +16,17 @@
 
 @protocol DrawingViewControllerDelegate;
 
-
-@interface DrawingViewController : PlayerViewController
-
+@interface DrawingViewController : PlayerViewController<UIGestureRecognizerDelegate>
 
 @property (nonatomic, weak) id <DrawingViewControllerDelegate> delegate;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
-@end
+- (NSInvocation *) drawScribbleInvocation;
+- (NSInvocation *) undrawScribbleInvocation;
+- (void) executeInvocation:(NSInvocation *)invocation withUndoInvocation:(NSInvocation *)undoInvocation;
+- (void) unexecuteInvocation:(NSInvocation *)invocation withRedoInvocation:(NSInvocation *)redoInvocation;
 
+@end
 
 @protocol DrawingViewControllerDelegate
 - (void)drawingViewController:(DrawingViewController *)controller didFinishWithSave:(BOOL)save;

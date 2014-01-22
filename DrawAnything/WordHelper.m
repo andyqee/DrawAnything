@@ -52,16 +52,16 @@
 
 }
 
-- (Word*)selectSingleWordBaseOnState: (WordStateType)state
-{
-    
-
-}
-
-- (Word*)selectAllWordsBaseOnState: (WordStateType)state
-{
-
-}
+//- (Word*)selectSingleWordBaseOnState: (WordStateType)state
+//{
+//    
+//
+//}
+//
+//- (Word*)selectAllWordsBaseOnState: (WordStateType)state
+//{
+//
+//}
 
 - (void)setWordState: (WordStateType)state
 {

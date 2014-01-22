@@ -11,23 +11,37 @@
 #import "Word.h"
 #import "Pen.h"
 #import "Eraser.h"
+#import "StationeryToolbar.h"
 
+#import "Dot.h"
+#import "Stroke.h"
+#import "DrawingCanvas.h"
+#import "Scribble.h"
+#import "Vertex.h"
 
 @interface DrawingViewController()
-
-@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
-@property (strong, nonatomic) NSArray * wordList;
+//@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
+@property (strong, nonatomic) IBOutlet UIView *canvasViewContainer;
+@property (strong, nonatomic) StationeryToolbar *stationaryToolbar;
+@property (strong, nonatomic) NSArray *wordList;
 @property (readwrite) NSUInteger cur;                 // store the current index of wordList
-@property (readwrite) NSString* navigationTitle;
+@property (readwrite) NSString *navigationTitle;
+
+@property (strong) Dot *dot;
+@property (strong) Stroke *stroke;
+@property (readwrite) CGFloat strokeSize;
+@property (strong, nonatomic) UIColor *strokeColor;
+@property (strong, nonatomic) Scribble *scribble;
+
+@property (strong, nonatomic) DrawingCanvas *canvas;
+@property (readwrite) CGPoint startPoint;
 
 - (IBAction)skipAction:(id)sender;
 - (IBAction)doneAction:(id)sender;
 
 @end
 
-
 @implementation DrawingViewController
-
 @synthesize wordList;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -36,7 +50,6 @@
     if (self) {
         //@TODO:
     }
-    
     return self;
 }
 
@@ -44,7 +57,6 @@
 {
     [super viewDidLoad];
     
-	// Do any additional setup after loading the view, typically from a nib.
     [self loadWordList];
     _cur = self.wordList.count - 1;
     
@@ -52,35 +64,48 @@
     self.navigationController.title = title;
     
     [self loadButtomToolbar];
+    [self createCanvas];
+    [self setUpScribble];
+    [self setUpDefaultStroke];
 }
 
-- (IBAction)skipAction:(id)sender {
-    [self deleteCachedDrawing];
-    [self updateWordState];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (IBAction)doneAction:(id)sender
+- (void)createCanvas
 {
-    if([self saveDrawing] == YES){
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-    else{
-        // fail to save the drawing record,maybe out of the storage
-  //      doSomethingelse()// ask user to empty some files;
-    }
+    [self.canvas removeFromSuperview];
+    
+    CGFloat width = self.canvasViewContainer.bounds.size.width;
+    CGFloat height = self.canvasViewContainer.bounds.size.height;
+
+    CGRect frame = CGRectMake(0, 0,width,height);
+    self.canvas = [[DrawingCanvas alloc] initWithFrame:frame];
+    
+    [self.canvasViewContainer addSubview:self.canvas];
 }
 
+- (void)setUpScribble
+{
+   // self.scribble = [[Scribble alloc]init];
+    self.scribble = [Scribble new];
+    [self.scribble addObserver:self forKeyPath:@"mark" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:nil];
+}
 
+- (void)setUpDefaultStroke
+{
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    CGFloat red = [userDefaults floatForKey:@"red"];
+    CGFloat green = [userDefaults floatForKey:@"green"];
+    CGFloat blue = [userDefaults floatForKey:@"blue"];
+    CGFloat size = [userDefaults floatForKey:@"size"];
+    
+    self.strokeSize = size;
+    self.strokeColor = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
+}
 - (void)loadWordList
 {
-    // Create and configure a fetch request with the DrawingRecord entity.
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    // Create the sort descriptors array.
     NSSortDescriptor *gradeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"grade" ascending:YES];
     NSArray *sortDescriptors = @[gradeDescriptor];
     [fetchRequest setSortDescriptors:sortDescriptors];
@@ -98,107 +123,166 @@
     }
 }
 
-
 - (NSString *)pickNextFromWordList
 {
     _cur = (_cur >= wordList.count - 1) ? 0 : _cur++;
     return ((Word*)[wordList objectAtIndex:_cur]).name;
 }
 
+#pragma mark -
+#pragma mark Touch Event Handlers
+
+- (void)touchesBegan:(NSSet *)inTouches withEvent:(UIEvent *)event
+{
+    _startPoint = [[inTouches anyObject] locationInView:_canvas];
+}
+
+- (void)touchesMoved:(NSSet *)inTouches withEvent:(UIEvent *)event
+{
+    CGPoint lastPoint = [[inTouches anyObject] previousLocationInView:_canvas];
+    if (CGPointEqualToPoint(lastPoint, _startPoint))
+    {
+        id <Mark> newStroke = [[Stroke alloc] init];
+        newStroke.color = _strokeColor;
+        newStroke.size = _strokeSize;
+        newStroke.timeInterval = event.timestamp;
+        
+        NSInvocation *drawInvocation = [self drawScribbleInvocation];
+        [drawInvocation setArgument:&newStroke atIndex:2];
+        
+        NSInvocation *undrawInvocation = [self undrawScribbleInvocation];
+        [undrawInvocation setArgument:&newStroke atIndex:2];
+        
+        [self executeInvocation:drawInvocation withUndoInvocation:undrawInvocation];
+    }
+    CGPoint currentPoint = [[inTouches anyObject] locationInView:_canvas];
+    NSTimeInterval timeInterval = event.timestamp;
+    
+    Vertex *vertex = [[Vertex alloc]initWithLocation:currentPoint TimeStamp:timeInterval];
+    [self.scribble addMark:vertex shouldAddToPreviousMark:YES];
+}
+
+- (void)touchesEnded:(NSSet *)inTouches withEvent:(UIEvent *)event
+{
+    CGPoint previousPoint = [[inTouches anyObject] previousLocationInView:_canvas];
+    CGPoint currentPoint = [[inTouches anyObject] locationInView:_canvas];
+    if (CGPointEqualToPoint(previousPoint, currentPoint)) {
+        NSTimeInterval timeInterval = event.timestamp;
+       
+        Dot *dot = [[Dot alloc]initWithLocation:currentPoint TimeStamp:timeInterval];
+        dot.color = _strokeColor;
+        dot.size = _strokeSize;
+        
+        NSInvocation *drawInvocation = [self drawScribbleInvocation];
+        [drawInvocation setArgument:&dot atIndex:2];
+        
+        NSInvocation *undrawInvocation = [self undrawScribbleInvocation];
+        [undrawInvocation setArgument:&dot atIndex:2];
+        
+        [self executeInvocation:drawInvocation withUndoInvocation:undrawInvocation];
+    }
+    _startPoint = CGPointZero;
+}
+
+- (void)touchesCancelled:(NSSet *)inTouches withEvent:(UIEvent *)event
+{
+    _startPoint = CGPointZero;
+}
+
+#pragma mark -
+#pragma mark Scribble observer method
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if (object == self.scribble && [keyPath isEqualToString:@"mark"]) {
+        id <Mark> mark = [change objectForKey:NSKeyValueChangeNewKey];
+        _canvas.mark = mark;
+       [_canvas setNeedsDisplay];
+    }
+}
+
+#pragma mark-
+#pragma mark Scribble invocation
+- (NSInvocation *)drawScribbleInvocation
+{
+    NSMethodSignature *executeMethodSignature = [_scribble methodSignatureForSelector:@selector(addMark:shouldAddToPreviousMark:)];
+    NSInvocation *drawInvocation = [NSInvocation invocationWithMethodSignature:executeMethodSignature];
+    [drawInvocation setTarget:_scribble];
+    [drawInvocation setSelector:@selector(addMark:shouldAddToPreviousMark:)];
+    BOOL attachToPreviousMark = NO;
+    [drawInvocation setArgument:&attachToPreviousMark atIndex:3];
+    
+    return drawInvocation;
+}
+
+- (NSInvocation *)undrawScribbleInvocation
+{
+    NSMethodSignature *unEcuteMethodSignature = [_scribble methodSignatureForSelector:@selector(removeMark:)];
+    NSInvocation *unDrawInvocation = [NSInvocation invocationWithMethodSignature:unEcuteMethodSignature];
+    [unDrawInvocation setTarget:_scribble];
+    [unDrawInvocation setSelector:@selector(removeMark:)];
+    
+    return unDrawInvocation;
+}
+
+#pragma mark-
+#pragma mark Invocation
+- (void)executeInvocation:(NSInvocation *)invocation withUndoInvocation:(NSInvocation *)undoInvocation
+{
+    [invocation retainArguments];
+    [[self.undoManager prepareWithInvocationTarget:self]unexecuteInvocation:undoInvocation withRedoInvocation:invocation];
+    [invocation invoke];
+}
+
+- (void)unexecuteInvocation:(NSInvocation *)invocation withRedoInvocation:(NSInvocation *)redoInvocation;
+{
+    [invocation retainArguments];
+    [[self.undoManager prepareWithInvocationTarget:self]executeInvocation:redoInvocation withUndoInvocation:invocation];
+    [invocation invoke];
+}
+
+#pragma mark -
+
 - (void)loadButtomToolbar
 {
-	_toolbar = [[UIToolbar alloc] initWithFrame:CGRectZero];
-	self.toolbar.barStyle = UIBarStyleDefault;
-	
-    [self adjustToolbarSize];
-    [self.toolbar setFrame:CGRectMake(CGRectGetMinX(self.view.bounds),
-                                      CGRectGetMinY(self.view.bounds) + CGRectGetHeight(self.view.bounds) - CGRectGetHeight(self.toolbar.frame),
-                                      CGRectGetWidth(self.view.bounds),
-                                      CGRectGetHeight(self.toolbar.frame))];
     
-    self.toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-	[self.view addSubview:self.toolbar];
-    
-    [self createToolbarItems];
-    // @TODO
 }
 
 - (void)adjustToolbarSize
 {
-	[self.toolbar sizeToFit];
     
-	CGRect mainViewBounds = self.view.bounds;
-	[self.toolbar setFrame:CGRectMake(CGRectGetMinX(mainViewBounds),
-                                      CGRectGetMinY(mainViewBounds) + CGRectGetHeight(mainViewBounds) - CGRectGetHeight(self.toolbar.frame),
-                                      CGRectGetWidth(mainViewBounds),
-                                      CGRectGetHeight(self.toolbar.frame))];
 }
 
 - (void)createToolbarItems
 {
-    // match each of the toolbar item's style match the selection in the "UIBarButtonItemStyle" segmented control
-//	UIBarButtonItemStyle style = [self.buttonItemStyleSegControl selectedSegmentIndex];
-    
-	// create the system-defined "OK or Done" button
-//    UIBarButtonItem *systemItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:self.currentSystemItem
-//                                                                                target:self
-//                                                                                action:@selector(action:)];
-//	systemItem.style = style;
-//	
-//	// flex item used to separate the left groups items and right grouped items
-//	UIBarButtonItem *flexItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-//                                                                              target:nil
-//                                                                              action:nil];
-//    
-	
-    // create a special tab bar item with a pen image and title
-	UIBarButtonItem *infoItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"segment_tools"]
-                                                                 style:style
-                                                                target:self
-                                                                action:@selector(action:)];
-    
-	// Set the accessibility label for an image bar item.
-	[infoItem setAccessibilityLabel:NSLocalizedString(@"ToolsIcon", @"")];
-	
-    // create a custom button with a background image with black text for its title:
-    UIBarButtonItem *customItem1 = [[UIBarButtonItem alloc] initWithTitle:@"Item1"
-                                                                    style:UIBarButtonItemStyleBordered
-                                                                   target:self
-                                                                   action:@selector(action:)];
-    UIImage *baseImage = [UIImage imageNamed:@"whiteButton"];
-    UIImage *backroundImage = [baseImage stretchableImageWithLeftCapWidth:12.0 topCapHeight:0.0];
-    [customItem1 setBackgroundImage:backroundImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    NSDictionary *textAttributes = @{ UITextAttributeTextColor:[UIColor blackColor] };
-    [customItem1 setTitleTextAttributes:textAttributes forState:UIControlStateNormal];
-    
-    // create a bordered style button with custom title
-	UIBarButtonItem *customItem2 = [[UIBarButtonItem alloc] initWithTitle:@"Item2"
-																	style:style	// note you can use "UIBarButtonItemStyleDone" to make it blue
-																   target:self
-																   action:@selector(action:)];
-    
-	// apply the bar button items to the toolbar
-    [self.toolbar setItems:@[ systemItem, flexItem, customItem1, customItem2, infoItem ] animated:NO];
-    
     
 }
 
 - (void)deleteCachedDrawing
 {
-
-
+    
 }
 
 - (void)updateWordState
 {
-
-
-
-}
- 
-- (BOOL)saveDrawing{
     
 }
 
+- (void)saveDrawing
+{
+    
+}
+
+#pragma mark -
+- (IBAction)skipAction:(id)sender {
+    [self deleteCachedDrawing];
+    [self updateWordState];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)doneAction:(id)sender
+{
+    [self saveDrawing];
+}
 
 @end

@@ -41,12 +41,12 @@
 
 
 
-- (NSString*)pickUnusedWord
-{
-    //first check if there exit unused word
-    
-    
-}
+//- (NSString*)pickUnusedWord
+//{
+//    //first check if there exit unused word
+//    
+//    
+//}
 
 - (void)setStatusOfTargetWord:(NSString *)targetWord
 {

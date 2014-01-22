@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface Pen : NSObject
-@property (strong,nonatomic) NSString*  penID;
+@property (strong, nonatomic) NSString*  penID;
 
 @end
