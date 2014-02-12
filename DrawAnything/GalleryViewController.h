@@ -12,6 +12,4 @@
 
 @interface GalleryViewController : UITableViewController <NSFetchedResultsControllerDelegate, DrawingViewControllerDelegate>
 
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
 @end

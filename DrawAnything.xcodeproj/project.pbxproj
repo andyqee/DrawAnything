@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1283D1418A60CAB0022BC0A /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1283D1318A60CAB0022BC0A /* CoreDataManager.m */; };
 		A14F0F98187D6E6800A520ED /* StationeryToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = A14F0F97187D6E6800A520ED /* StationeryToolbar.m */; };
 		A14F0F9B187D6F3E00A520ED /* StaioneryToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A14F0F9A187D6F3E00A520ED /* StaioneryToolbarButton.m */; };
 		A16B37091877BE2F00A33BB0 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = A16B37081877BE2F00A33BB0 /* Word.m */; };
@@ -31,8 +32,6 @@
 		A192008918697EAD00934DC1 /* WordsLib.plist in Resources */ = {isa = PBXBuildFile; fileRef = A192008818697EAD00934DC1 /* WordsLib.plist */; };
 		A192008C18697F6F00934DC1 /* DrawingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = A192008B18697F6F00934DC1 /* DrawingRecord.m */; };
 		A1A5B1D21875437900AB2E26 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A1A5B1D01875437900AB2E26 /* Model.xcdatamodeld */; };
-		A1A5B1DC18754F8800AB2E26 /* DrawingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A5B1DB18754F8800AB2E26 /* DrawingRecord.m */; };
-		A1A5B1DF18754F8900AB2E26 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A5B1DE18754F8900AB2E26 /* Word.m */; };
 		A1A91283186F0B80006CEE8D /* WordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A91282186F0B80006CEE8D /* WordManager.m */; };
 		A1A91286186F13AA006CEE8D /* WordHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A91285186F13AA006CEE8D /* WordHelper.m */; };
 		A1B9F2601884CACE00689E5D /* DrawingCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B9F25F1884CACE00689E5D /* DrawingCanvas.m */; };
@@ -58,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A1283D1218A60CAB0022BC0A /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
+		A1283D1318A60CAB0022BC0A /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
 		A14F0F96187D6E6800A520ED /* StationeryToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationeryToolbar.h; sourceTree = "<group>"; };
 		A14F0F97187D6E6800A520ED /* StationeryToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationeryToolbar.m; sourceTree = "<group>"; };
 		A14F0F99187D6F3E00A520ED /* StaioneryToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaioneryToolbarButton.h; sourceTree = "<group>"; };
@@ -95,10 +96,6 @@
 		A192008A18697F6F00934DC1 /* DrawingRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingRecord.h; sourceTree = "<group>"; };
 		A192008B18697F6F00934DC1 /* DrawingRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingRecord.m; sourceTree = "<group>"; };
 		A1A5B1D11875437900AB2E26 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		A1A5B1DA18754F8800AB2E26 /* DrawingRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DrawingRecord.h; path = DrawAnything/DrawingRecord.h; sourceTree = "<group>"; };
-		A1A5B1DB18754F8800AB2E26 /* DrawingRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DrawingRecord.m; path = DrawAnything/DrawingRecord.m; sourceTree = "<group>"; };
-		A1A5B1DD18754F8900AB2E26 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Word.h; path = DrawAnything/Word.h; sourceTree = "<group>"; };
-		A1A5B1DE18754F8900AB2E26 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Word.m; path = DrawAnything/Word.m; sourceTree = "<group>"; };
 		A1A91281186F0B80006CEE8D /* WordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordManager.h; sourceTree = "<group>"; };
 		A1A91282186F0B80006CEE8D /* WordManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordManager.m; sourceTree = "<group>"; };
 		A1A91284186F13AA006CEE8D /* WordHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordHelper.h; sourceTree = "<group>"; };
@@ -152,6 +149,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A1283D0E18A608130022BC0A /* CoreDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				A1283D1218A60CAB0022BC0A /* CoreDataManager.h */,
+				A1283D1318A60CAB0022BC0A /* CoreDataManager.m */,
+			);
+			name = CoreDataManager;
+			sourceTree = "<group>";
+		};
 		A12B617F188CB65500F2E007 /* toolbarItemModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -178,10 +184,6 @@
 			isa = PBXGroup;
 			children = (
 				A1920049186820E000934DC1 /* DrawAnything */,
-				A1A5B1DD18754F8900AB2E26 /* Word.h */,
-				A1A5B1DE18754F8900AB2E26 /* Word.m */,
-				A1A5B1DA18754F8800AB2E26 /* DrawingRecord.h */,
-				A1A5B1DB18754F8800AB2E26 /* DrawingRecord.m */,
 				A1920068186820E000934DC1 /* DrawAnythingTests */,
 				A1920042186820E000934DC1 /* Frameworks */,
 				A1920041186820E000934DC1 /* Products */,
@@ -280,7 +282,8 @@
 				A1B9F2731886BDEC00689E5D /* ScribbleMemento.m */,
 				A1B9F26F1886BD5400689E5D /* ScribbleManager.h */,
 				A1B9F2701886BD5400689E5D /* ScribbleManager.m */,
-				A1A5B1D918754E2600AB2E26 /* coreDataModel */,
+				A1283D0E18A608130022BC0A /* CoreDataManager */,
+				A1A5B1D918754E2600AB2E26 /* CoreDataModel */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -299,7 +302,7 @@
 			name = Image;
 			sourceTree = "<group>";
 		};
-		A1A5B1D918754E2600AB2E26 /* coreDataModel */ = {
+		A1A5B1D918754E2600AB2E26 /* CoreDataModel */ = {
 			isa = PBXGroup;
 			children = (
 				A1A5B1D01875437900AB2E26 /* Model.xcdatamodeld */,
@@ -308,7 +311,7 @@
 				A192008A18697F6F00934DC1 /* DrawingRecord.h */,
 				A192008B18697F6F00934DC1 /* DrawingRecord.m */,
 			);
-			name = coreDataModel;
+			name = CoreDataModel;
 			sourceTree = "<group>";
 		};
 		A1A91280186E7D1A006CEE8D /* View Controllers */ = {
@@ -439,6 +442,7 @@
 			files = (
 				A1920054186820E000934DC1 /* DATAppDelegate.m in Sources */,
 				A1B9F26A1886B1C800689E5D /* Vertex.m in Sources */,
+				A1283D1418A60CAB0022BC0A /* CoreDataManager.m in Sources */,
 				A14F0F9B187D6F3E00A520ED /* StaioneryToolbarButton.m in Sources */,
 				A192008C18697F6F00934DC1 /* DrawingRecord.m in Sources */,
 				A1B9F26E1886BD2300689E5D /* Scribble.m in Sources */,
@@ -447,7 +451,6 @@
 				A192008718697CDF00934DC1 /* DrawingViewController.m in Sources */,
 				A192008418697C4A00934DC1 /* PlayerViewController.m in Sources */,
 				A16B37091877BE2F00A33BB0 /* Word.m in Sources */,
-				A1A5B1DC18754F8800AB2E26 /* DrawingRecord.m in Sources */,
 				A1B9F26618865BC600689E5D /* Stroke.m in Sources */,
 				A1FD64F8186B10A70057978D /* WordLib.m in Sources */,
 				A1B9F2631886280A00689E5D /* Dot.m in Sources */,
@@ -459,7 +462,6 @@
 				A1A91283186F0B80006CEE8D /* WordManager.m in Sources */,
 				A1B9F2741886BDEC00689E5D /* ScribbleMemento.m in Sources */,
 				A1B9F2711886BD5400689E5D /* ScribbleManager.m in Sources */,
-				A1A5B1DF18754F8900AB2E26 /* Word.m in Sources */,
 				A192007B186972F100934DC1 /* Pen.m in Sources */,
 				A192008118697C1900934DC1 /* GalleryViewController.m in Sources */,
 				A14F0F98187D6E6800A520ED /* StationeryToolbar.m in Sources */,

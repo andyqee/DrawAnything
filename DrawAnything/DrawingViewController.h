@@ -11,6 +11,7 @@
 #import "WordHelper.h"
 
 #import "PlayerViewController.h"
+#import "CoreDataManager.h"
 
 //#import "DetailViewController.h"
 

@@ -5,16 +5,18 @@
         <attribute name="finishedTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="recordFilePath" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="snapShotFilePath" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="tittle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="associate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Word" syncable="YES"/>
     </entity>
+    <entity name="Entity" syncable="YES"/>
     <entity name="Word" representedClassName="Word" syncable="YES">
         <attribute name="grade" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="state" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DrawingRecord" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Word" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="DrawingRecord" positionX="0" positionY="0" width="128" height="135"/>
+        <element name="Word" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="Entity" positionX="9" positionY="54" width="128" height="45"/>
     </elements>
 </model>

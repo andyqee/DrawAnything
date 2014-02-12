@@ -13,9 +13,10 @@
 typedef NS_ENUM(NSInteger, WordStateType){
     Fresh,
     Inuse,
-    pending,
+    Pending,
 
 };
+
 
 @interface WordHelper : NSObject
 

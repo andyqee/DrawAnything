@@ -67,14 +67,12 @@
         [fm createFileAtPath:@"wordLibAtDoc.plist" contents:sourceDataOfwordLibInSupportingFolder attributes:nil];
         
     }
-    
     // create playlist file if it does not exit
     NSString* recordPlayListPath = [documentFilePath stringByAppendingString:@"recordPlayListPath"];
     if (![fm fileExistsAtPath:recordPlayListPath]) {
         [fm createFileAtPath:@"recordPlayList.plist" contents:nil attributes:nil];
         
     }
-    
 }
 
 

@@ -9,8 +9,8 @@
 #import "DrawingViewController.h"
 #import "DrawingRecord.h"
 #import "Word.h"
-#import "Pen.h"
-#import "Eraser.h"
+//#import "Pen.h"
+//#import "Eraser.h"
 #import "StationeryToolbar.h"
 
 #import "Dot.h"
@@ -20,7 +20,7 @@
 #import "Vertex.h"
 
 @interface DrawingViewController()
-//@property (strong, nonatomic) IBOutlet UIToolbar *toolbar;
+
 @property (strong, nonatomic) IBOutlet UIView *canvasViewContainer;
 @property (strong, nonatomic) StationeryToolbar *stationaryToolbar;
 @property (strong, nonatomic) NSArray *wordList;
@@ -48,7 +48,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        //@TODO:
+        //@TODO
     }
     return self;
 }
@@ -60,7 +60,8 @@
     [self loadWordList];
     _cur = self.wordList.count - 1;
     
-    NSString *title = [self pickNextFromWordList];
+ //   NSString *title = [self pickNextFromWordList];
+    NSString *title = @"testTitle";
     self.navigationController.title = title;
     
     [self loadButtomToolbar];
@@ -100,8 +101,10 @@
     self.strokeSize = size;
     self.strokeColor = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
 }
+
 - (void)loadWordList
 {
+    self.managedObjectContext = [CoreDataManager defaultContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
@@ -110,7 +113,7 @@
     NSArray *sortDescriptors = @[gradeDescriptor];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"word.state == %@",Fresh];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"state == %d",Fresh];
     [fetchRequest setPredicate:predicate];
     
     NSError *error;

@@ -12,22 +12,25 @@
 #import "DrawingRecord.h"
 
 #import "PlayerViewController.h"
-
+#import "DrawingViewController.h"
+#import "CoreDataManager.h"
 
 @interface GalleryViewController()
     
-@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-    
 @property (nonatomic, strong) UIBarButtonItem *rightBarButtonItem;
-    
-//NSMutableArray  *_objects;
+
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
+@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+//@property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+//@property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
 
 @end
 
 #pragma mark -
-
+#pragma mark - implementation
 @implementation GalleryViewController 
 
+#pragma mark -
 #pragma mark - View lifecycle
 
 - (void)awakeFromNib
@@ -41,32 +44,37 @@
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(startNewDrawing:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+//    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(startNewDrawing:)];
+//    self.navigationItem.rightBarButtonItem = addButton;
     
     NSError *error;
     if (![[self fetchedResultsController] performFetch:&error]) {
-        /*
-         Replace this implementation with code to handle the error appropriately.
-         
-         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-         */
+        
         NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
         abort();
     }
 }
 
-- (void)viewWillAppear {
-    
+- (void)viewWillAppear
+{
     [self.tableView reloadData];
 }
 
-
-- (void)viewDidUnload {
-    
-    // Release any properties that are loaded in viewDidLoad or can be recreated lazily.
+- (void)viewDidUnload
+{
     self.fetchedResultsController = nil;
 }
+
+- (void)viewDidAppear:(BOOL)animated
+{
+//    [super viewDidAppear:animated];
+//    
+//    DrawingViewController *dvc = [[DrawingViewController alloc] init];
+//    [self.navigationController pushViewController:dvc animated:YES];
+
+}
+
+#pragma mark - waiting for implement
 
 - (void)startNewDrawing:(id)sender
 {
@@ -77,27 +85,18 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-   // return 1;
     return [[self.fetchedResultsController sections] count];
-
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-   // return _objects.count;
-    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
-
-}
-
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    NSInteger numberOfRows = 0;
+    if ([[self.fetchedResultsController sections] count] > 0) {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+        numberOfRows = [sectionInfo numberOfObjects];
+    }
     
-    // Configure the cell to show the book's title
-    DrawingRecord *record = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    cell.textLabel.text = record.title;
-    
-    NSString *imagePath = record.snapShotFilePath;
-    cell.imageView.image = [UIImage imageWithContentsOfFile:imagePath];
+    return  numberOfRows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -107,8 +106,6 @@
     [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
-
-
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -131,14 +128,23 @@
     }
 }
 
+#pragma mark - private method used to configure cell of table view
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    DrawingRecord *record = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    cell.textLabel.text = record.title;
+    
+    NSString *imagePath = record.snapShotFilePath;
+    cell.imageView.image = [UIImage imageWithContentsOfFile:imagePath];
+}
+
 #pragma mark - Table view editing
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    // The table view should not be re-orderable.
     return NO;
 }
-
 
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated {
     
@@ -154,11 +160,7 @@
     }
 }
 
-
-
-
 #pragma mark - Fetched results controller
-
 /*
  Returns the fetched results controller. Creates and configures the controller if necessary.
  */
@@ -167,25 +169,27 @@
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
+    NSManagedObjectContext *managedObjectContext = [self managedObjectContext];
     
-    // Create and configure a fetch request with the DrawingRecord entity.
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"DrawingRecord" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"DrawingRecord"
+                                              inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    // Create the sort descriptors array.
     NSSortDescriptor *creationTimeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"creationTime" ascending:YES];
-    NSSortDescriptor *titleDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
-    NSArray *sortDescriptors = @[creationTimeDescriptor, titleDescriptor];
+ //   NSSortDescriptor *titleDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
+    NSArray *sortDescriptors = @[creationTimeDescriptor];
+  //  NSArray *sortDescriptors = @[creationTimeDescriptor,titleDescriptor];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-    // Create and initialize the fetch results controller.
-    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"creationTime" cacheName:@"Root"];
+    _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                                                    managedObjectContext:managedObjectContext
+                                                                      sectionNameKeyPath:@"creationTime"
+                                                                               cacheName:@"Root"];
     _fetchedResultsController.delegate = self;
     
     return _fetchedResultsController;
 }
-
 
 /*
  NSFetchedResultsController delegate methods to respond to additions, removals and so on.
@@ -236,11 +240,68 @@
     }
 }
 
-- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller {
-    
-    // The fetch controller has sent all current change notifications, so tell the table view to process all updates.
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
     [self.tableView endUpdates];
 }
+
+#pragma mark - core Date stack
+
+//- (NSURL *)applicationDocumentsDirectory
+//{
+//    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+//}
+//
+- (NSManagedObjectContext *)managedObjectContext
+{
+    _managedObjectContext = [CoreDataManager defaultContext];
+    return _managedObjectContext;
+}
+
+//
+//- (NSManagedObjectModel *)managedObjectModel
+//{
+//    if (_managedObjectModel != nil) {
+//        return _managedObjectModel;
+//    }
+//    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Model" withExtension:@"momd"];
+//    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
+//    
+//    return _managedObjectModel;
+//}
+//
+//- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
+//{
+//    if (_persistentStoreCoordinator != nil) {
+//        return _persistentStoreCoordinator;
+//    }
+//    
+//    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Model.CDBStore"];
+//    
+//    /*
+//     Set up the store.
+//     For the sake of illustration, provide a pre-populated default store.
+//     */
+//    NSFileManager *fileManager = [NSFileManager defaultManager];
+//    // If the expected store doesn't exist, copy the default store.
+//    if (![fileManager fileExistsAtPath:[storeURL path]]) {
+//        NSURL *defaultStoreURL = [[NSBundle mainBundle] URLForResource:@"Model" withExtension:@"CDBStore"];
+//        if (defaultStoreURL) {
+//            [fileManager copyItemAtURL:defaultStoreURL toURL:storeURL error:NULL];
+//        }
+//    }
+//    
+//    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES, NSInferMappingModelAutomaticallyOption: @YES};
+//    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
+//    
+//    NSError *error;
+//    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
+//        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+//        abort();
+//    }
+//    
+//    return _persistentStoreCoordinator;
+//}
 
 #pragma mark - Segue management
 
@@ -266,9 +327,6 @@
         DrawingRecord *newDrawingRecord = (DrawingRecord *)[NSEntityDescription insertNewObjectForEntityForName:@"DrawingRecord" inManagedObjectContext:addingContext];
         drawingViewController.drawingRecord = newDrawingRecord;
         drawingViewController.managedObjectContext = addingContext;
-        
-        
-        
     }
     else if ([[segue identifier] isEqualToString:@"playerSegue"])
     {
@@ -278,15 +336,10 @@
         // Pass the selected drawing record to the new view controller.
         PlayerViewController *playerViewController = (PlayerViewController *)[segue destinationViewController];
         playerViewController.drawingRecord = selectedRecord;
-        
-
     }
-    
 }
 
-
 #pragma mark - Add controller delegate
-
 /*
  Add controller's delegate method; informs the delegate that the add operation has completed, and indicates whether the user saved the new Drawing record.
  */
@@ -319,11 +372,8 @@
             abort();
         }
     }
-    
     // Dismiss the modal view to return to the main list
     [self dismissViewControllerAnimated:YES completion:nil];
 }
-
-
 
 @end
