@@ -59,10 +59,12 @@
     
     [self loadWordList];
     _cur = self.wordList.count - 1;
-    
  //   NSString *title = [self pickNextFromWordList];
     NSString *title = @"testTitle";
-    self.navigationController.title = title;
+  //  self.navigationController.title = title;
+ //   self.title = title;
+    self.navigationItem.title = title;
+
     
     [self loadButtomToolbar];
     [self createCanvas];
