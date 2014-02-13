@@ -25,7 +25,6 @@
 - (void)removeMark:(id <Mark>) mark;
 - (id <Mark>)childMarkAtIndex:(NSUInteger) index;
 
-// for the Visitor pattern
 - (void)acceptMarkVisitor:(id <MarkVisitor>) visitor;
 
 // for the Iterator pattern

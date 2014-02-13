@@ -18,6 +18,7 @@
 @property (nonatomic) CGPoint location;
 @property (nonatomic, readonly) NSUInteger count;
 @property (nonatomic, readonly) id <Mark> lastChild;
+@property NSTimeInterval timeInterval;
 
 - (id)initWithLocation:(CGPoint)location TimeStamp:(NSTimeInterval)timeInterval;
 
@@ -27,16 +28,12 @@
 
 - (void)acceptMarkVisitor:(id <MarkVisitor>) visitor;
 
-// for the Prototype pattern
 - (id)copyWithZone:(NSZone *)zone;
 
-// for the Iterator pattern
 - (NSEnumerator *)enumerator;
 
-// for internal iterator implementation
 - (void)enumerateMarksUsingBlock:(void (^)(id <Mark> item, BOOL *stop)) block;
 
-// for the Memento pattern
 - (id)initWithCoder:(NSCoder *)coder;
 - (void)encodeWithCoder:(NSCoder *)coder;
 

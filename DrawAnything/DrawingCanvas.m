@@ -7,6 +7,7 @@
 //
 
 #import "DrawingCanvas.h"
+#import "MarkRenderer.h"
 
 @implementation DrawingCanvas
 
@@ -19,14 +20,13 @@
     return self;
 }
 
-- (void)drawInContext:(CGContextRef)context
-{
-
-}
 
 - (void)drawRect:(CGRect)rect
 {
-    [self drawInContext:UIGraphicsGetCurrentContext()];
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    MarkRenderer *markRenderer = [[MarkRenderer alloc] initWithCGContext:context];
+
+    [_mark acceptMarkVisitor:markRenderer];
 }
 
 @end

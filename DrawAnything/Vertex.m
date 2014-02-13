@@ -21,10 +21,9 @@
     return self;
 }
 
-// for what ?
 - (void)acceptMarkVisitor:(id<MarkVisitor>)visitor
 {
-//    [visitor visitVertex:self];
+    [visitor visitVertex:self];
 }
 
 #pragma mark -

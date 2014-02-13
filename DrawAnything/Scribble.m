@@ -13,17 +13,20 @@
 @interface Scribble ()
 
 @property (nonatomic, strong) id <Mark> mark;
-@property (nonatomic, strong) id <Mark> rootMark;
+//@property (nonatomic, strong) id <Mark> rootMark;
 @property (nonatomic, strong) id <Mark> incrementalMark;
 
 @end
+
 
 @implementation Scribble
 
 - (id)init
 {
     if (self = [super init]){
-        _rootMark = [[Stroke alloc] init];
+//        _mark = [[Stroke alloc] init];
+        _mark = [[Stroke alloc] init];
+
     }
     return self;
 }
@@ -36,10 +39,10 @@
     [self willChangeValueForKey:@"mark"];
     
     if (shouldAddToPreviousMark){
-        [[_rootMark lastChild] addMark:aMark];
+        [[_mark lastChild] addMark:aMark];
     }
     else{
-        [_rootMark addMark:aMark];
+        [_mark addMark:aMark];
         _incrementalMark = aMark;
     }
     
@@ -48,9 +51,9 @@
 
 - (void)removeMark:(id <Mark>)aMark
 {
-    if (aMark == _rootMark) return;
+    if (aMark == _mark) return;
     [self willChangeValueForKey:@"mark"];
-    [_rootMark removeMark:aMark];
+    [_mark removeMark:aMark];
     
     if (aMark == _incrementalMark){
         _incrementalMark = nil;

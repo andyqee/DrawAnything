@@ -19,6 +19,13 @@
 #import "Scribble.h"
 #import "Vertex.h"
 
+//CONSTANTS:
+CGFloat const defaultStrokeSize = 10.0;
+CGFloat const defaultStrokeRed = 0;
+CGFloat const defaultStrokeGreen = 0;
+CGFloat const defaultStrokeBlue = 0;
+
+
 @interface DrawingViewController()
 
 @property (strong, nonatomic) IBOutlet UIView *canvasViewContainer;
@@ -65,7 +72,6 @@
  //   self.title = title;
     self.navigationItem.title = title;
 
-    
     [self loadButtomToolbar];
     [self createCanvas];
     [self setUpScribble];
@@ -81,7 +87,7 @@
 
     CGRect frame = CGRectMake(0, 0,width,height);
     self.canvas = [[DrawingCanvas alloc] initWithFrame:frame];
-    
+ //   [self.canvas setBackgroundColor:[UIColor grayColor]];  //
     [self.canvasViewContainer addSubview:self.canvas];
 }
 
@@ -95,11 +101,18 @@
 - (void)setUpDefaultStroke
 {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    CGFloat size = [userDefaults floatForKey:@"size"];
+    if (size == 0) {
+        [userDefaults setFloat:defaultStrokeSize forKey:@"size"];
+        [userDefaults setFloat:defaultStrokeRed forKey:@"red"];
+        [userDefaults setFloat:defaultStrokeGreen forKey:@"green"];
+        [userDefaults setFloat:defaultStrokeBlue forKey:@"blue"];
+    }
     CGFloat red = [userDefaults floatForKey:@"red"];
     CGFloat green = [userDefaults floatForKey:@"green"];
     CGFloat blue = [userDefaults floatForKey:@"blue"];
-    CGFloat size = [userDefaults floatForKey:@"size"];
-    
+    size = [userDefaults floatForKey:@"size"];
+
     self.strokeSize = size;
     self.strokeColor = [UIColor colorWithRed:red green:green blue:blue alpha:1.0];
 }
@@ -194,8 +207,8 @@
     _startPoint = CGPointZero;
 }
 
-#pragma mark -
-#pragma mark Scribble observer method
+#pragma mark - Scribble observer method
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (object == self.scribble && [keyPath isEqualToString:@"mark"]) {
@@ -205,8 +218,8 @@
     }
 }
 
-#pragma mark-
-#pragma mark Scribble invocation
+#pragma mark - Scribble invocation
+
 - (NSInvocation *)drawScribbleInvocation
 {
     NSMethodSignature *executeMethodSignature = [_scribble methodSignatureForSelector:@selector(addMark:shouldAddToPreviousMark:)];
@@ -229,8 +242,8 @@
     return unDrawInvocation;
 }
 
-#pragma mark-
-#pragma mark Invocation
+#pragma mark - Invocation
+
 - (void)executeInvocation:(NSInvocation *)invocation withUndoInvocation:(NSInvocation *)undoInvocation
 {
     [invocation retainArguments];
@@ -290,4 +303,9 @@
     [self saveDrawing];
 }
 
+// We do not support auto-rotation
+- (BOOL)shouldAutorotate
+{
+    return NO;
+}
 @end

@@ -7,14 +7,6 @@
 //
 
 #import "Stroke.h"
-@interface Stroke()
-
-@property (nonatomic,strong) NSMutableArray *marks;
-@property (nonatomic,strong) UIColor *strokeColor;
-@property (readwrite) CGFloat strokeSize;
-@property (readwrite) NSTimeInterval strokeTimeInterval;
-
-@end
 
 @implementation Stroke
 
@@ -22,7 +14,7 @@
 {
     self = [super init];
     if (self) {
-        self.marks = [NSMutableArray arrayWithCapacity:8];
+        _marks = [NSMutableArray arrayWithCapacity:8];
     }
     return self;
 }
@@ -55,11 +47,20 @@
     return [_marks count];
 }
 
-- (id <Mark>)childMarkAtIndex:(NSUInteger) index
+- (id<Mark>)childMarkAtIndex:(NSUInteger) index
 {
     if (index >= [_marks count]) return nil;
     
     return [_marks objectAtIndex:index];
+}
+
+- (void)acceptMarkVisitor:(id<MarkVisitor>)visitor
+{
+    for (id <Mark> mark in _marks)
+    {
+        [mark acceptMarkVisitor:visitor];
+    }
+    [visitor visitStroke:self];
 }
 
 #pragma mark -
@@ -75,9 +76,9 @@ static NSString *MarksKey = @"StrokeMarks";
 {
     self = [super init];
     if (self) {
-        _strokeColor = [aDecoder decodeObjectForKey:ColorKey];
-        _strokeSize = [aDecoder decodeFloatForKey:SizeKey];
-        _strokeTimeInterval = [aDecoder decodeDoubleForKey:TimeIntervalKey];
+        _color = [aDecoder decodeObjectForKey:ColorKey];
+        _size = [aDecoder decodeFloatForKey:SizeKey];
+        _timeInterval = [aDecoder decodeDoubleForKey:TimeIntervalKey];
         _marks = [aDecoder decodeObjectForKey:MarksKey];
     }
     return self;
@@ -85,14 +86,13 @@ static NSString *MarksKey = @"StrokeMarks";
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeObject:_strokeColor forKey:ColorKey];
-    [aCoder encodeFloat:_strokeSize forKey:SizeKey];
-    [aCoder encodeDouble:_strokeTimeInterval forKey:TimeIntervalKey];
+    [aCoder encodeObject:_color forKey:ColorKey];
+    [aCoder encodeFloat:_size forKey:SizeKey];
+    [aCoder encodeDouble:_timeInterval forKey:TimeIntervalKey];
     [aCoder encodeObject:_marks forKey:MarksKey];
 }
 
-#pragma mark -
-#pragma mark draw context
+#pragma mark - draw context
 
 - (void)drawWithContext:(CGContextRef)context
 {
@@ -108,7 +108,5 @@ static NSString *MarksKey = @"StrokeMarks";
     CGContextSetStrokeColorWithColor(context,[self.color CGColor]);
     CGContextStrokePath(context);
 }
-
-
 
 @end

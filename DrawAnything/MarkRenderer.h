@@ -1,17 +1,21 @@
 //
-//  MarkVisitor.h
+//  MarkRenderer.h
 //  DrawAnything
 //
-//  Created by andy on 15/1/14.
+//  Created by andy on 12/2/14.
 //  Copyright (c) 2014 andy. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "Dot.h"
+#import "Vertex.h"
+#import "Stroke.h"
 
-@protocol Mark;
-@class Dot, Vertex, Stroke;
+@interface MarkRenderer : NSObject<MarkVisitor>
 
-@protocol MarkVisitor <NSObject>
+@property (nonatomic) CGContextRef context;
+
+- (id) initWithCGContext:(CGContextRef)context;
 
 - (void) visitMark:(id <Mark>)mark;
 - (void) visitDot:(Dot *)dot;
