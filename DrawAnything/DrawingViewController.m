@@ -258,6 +258,16 @@ CGFloat const defaultStrokeBlue = 0;
     [invocation invoke];
 }
 
+- (IBAction)undo:(id)sender
+{
+    [self.undoManager undo];
+}
+
+- (IBAction)redo:(id)sender
+{
+    [self.undoManager redo];
+}
+
 #pragma mark -
 
 - (void)loadButtomToolbar

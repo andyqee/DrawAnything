@@ -27,6 +27,10 @@
 - (void) executeInvocation:(NSInvocation *)invocation withUndoInvocation:(NSInvocation *)undoInvocation;
 - (void) unexecuteInvocation:(NSInvocation *)invocation withRedoInvocation:(NSInvocation *)redoInvocation;
 
+- (IBAction)undo:(id)sender;
+
+- (IBAction)redo:(id)sender;
+
 @end
 
 @protocol DrawingViewControllerDelegate
