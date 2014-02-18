@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A1283D1418A60CAB0022BC0A /* CoreDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1283D1318A60CAB0022BC0A /* CoreDataManager.m */; };
-		A14F0F98187D6E6800A520ED /* StationeryToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = A14F0F97187D6E6800A520ED /* StationeryToolbar.m */; };
-		A14F0F9B187D6F3E00A520ED /* StaioneryToolbarButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A14F0F9A187D6F3E00A520ED /* StaioneryToolbarButton.m */; };
 		A16B37091877BE2F00A33BB0 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = A16B37081877BE2F00A33BB0 /* Word.m */; };
 		A1920044186820E000934DC1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1920043186820E000934DC1 /* Foundation.framework */; };
 		A1920046186820E000934DC1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1920045186820E000934DC1 /* CoreGraphics.framework */; };
@@ -31,6 +29,9 @@
 		A192008718697CDF00934DC1 /* DrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A192008618697CDF00934DC1 /* DrawingViewController.m */; };
 		A192008918697EAD00934DC1 /* WordsLib.plist in Resources */ = {isa = PBXBuildFile; fileRef = A192008818697EAD00934DC1 /* WordsLib.plist */; };
 		A192008C18697F6F00934DC1 /* DrawingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = A192008B18697F6F00934DC1 /* DrawingRecord.m */; };
+		A19B401718AD161B006E3109 /* BasePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A19B401618AD161B006E3109 /* BasePickerView.m */; };
+		A19B401A18AD1641006E3109 /* ColorPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = A19B401918AD1641006E3109 /* ColorPicker.m */; };
+		A19B401D18AD165C006E3109 /* SizePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = A19B401C18AD165C006E3109 /* SizePicker.m */; };
 		A1A5B1D21875437900AB2E26 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A1A5B1D01875437900AB2E26 /* Model.xcdatamodeld */; };
 		A1A91283186F0B80006CEE8D /* WordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A91282186F0B80006CEE8D /* WordManager.m */; };
 		A1A91286186F13AA006CEE8D /* WordHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A91285186F13AA006CEE8D /* WordHelper.m */; };
@@ -60,10 +61,6 @@
 /* Begin PBXFileReference section */
 		A1283D1218A60CAB0022BC0A /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataManager.h; sourceTree = "<group>"; };
 		A1283D1318A60CAB0022BC0A /* CoreDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataManager.m; sourceTree = "<group>"; };
-		A14F0F96187D6E6800A520ED /* StationeryToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StationeryToolbar.h; sourceTree = "<group>"; };
-		A14F0F97187D6E6800A520ED /* StationeryToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StationeryToolbar.m; sourceTree = "<group>"; };
-		A14F0F99187D6F3E00A520ED /* StaioneryToolbarButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaioneryToolbarButton.h; sourceTree = "<group>"; };
-		A14F0F9A187D6F3E00A520ED /* StaioneryToolbarButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StaioneryToolbarButton.m; sourceTree = "<group>"; };
 		A16B37071877BE2F00A33BB0 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
 		A16B37081877BE2F00A33BB0 /* Word.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Word.m; sourceTree = "<group>"; };
 		A1920040186820E000934DC1 /* DrawAnything.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawAnything.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +93,12 @@
 		A192008818697EAD00934DC1 /* WordsLib.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = WordsLib.plist; sourceTree = "<group>"; };
 		A192008A18697F6F00934DC1 /* DrawingRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingRecord.h; sourceTree = "<group>"; };
 		A192008B18697F6F00934DC1 /* DrawingRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingRecord.m; sourceTree = "<group>"; };
+		A19B401518AD161B006E3109 /* BasePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePickerView.h; sourceTree = "<group>"; };
+		A19B401618AD161B006E3109 /* BasePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePickerView.m; sourceTree = "<group>"; };
+		A19B401818AD1641006E3109 /* ColorPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPicker.h; sourceTree = "<group>"; };
+		A19B401918AD1641006E3109 /* ColorPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPicker.m; sourceTree = "<group>"; };
+		A19B401B18AD165C006E3109 /* SizePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SizePicker.h; sourceTree = "<group>"; };
+		A19B401C18AD165C006E3109 /* SizePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SizePicker.m; sourceTree = "<group>"; };
 		A1A5B1D11875437900AB2E26 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		A1A91281186F0B80006CEE8D /* WordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordManager.h; sourceTree = "<group>"; };
 		A1A91282186F0B80006CEE8D /* WordManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordManager.m; sourceTree = "<group>"; };
@@ -175,10 +178,6 @@
 		A14F0F8C187CDCCC00A520ED /* Picker */ = {
 			isa = PBXGroup;
 			children = (
-				A14F0F96187D6E6800A520ED /* StationeryToolbar.h */,
-				A14F0F97187D6E6800A520ED /* StationeryToolbar.m */,
-				A14F0F99187D6F3E00A520ED /* StaioneryToolbarButton.h */,
-				A14F0F9A187D6F3E00A520ED /* StaioneryToolbarButton.m */,
 			);
 			name = Picker;
 			sourceTree = "<group>";
@@ -350,6 +349,12 @@
 				A1B9F27B1887BCC700689E5D /* ScribbleThumbnailViewImageProxy.m */,
 				A1B9F25E1884CACE00689E5D /* DrawingCanvas.h */,
 				A1B9F25F1884CACE00689E5D /* DrawingCanvas.m */,
+				A19B401518AD161B006E3109 /* BasePickerView.h */,
+				A19B401618AD161B006E3109 /* BasePickerView.m */,
+				A19B401818AD1641006E3109 /* ColorPicker.h */,
+				A19B401918AD1641006E3109 /* ColorPicker.m */,
+				A19B401B18AD165C006E3109 /* SizePicker.h */,
+				A19B401C18AD165C006E3109 /* SizePicker.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -454,11 +459,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1920054186820E000934DC1 /* DATAppDelegate.m in Sources */,
+				A19B401718AD161B006E3109 /* BasePickerView.m in Sources */,
 				A1B9F26A1886B1C800689E5D /* Vertex.m in Sources */,
+				A19B401A18AD1641006E3109 /* ColorPicker.m in Sources */,
 				A1283D1418A60CAB0022BC0A /* CoreDataManager.m in Sources */,
-				A14F0F9B187D6F3E00A520ED /* StaioneryToolbarButton.m in Sources */,
 				A192008C18697F6F00934DC1 /* DrawingRecord.m in Sources */,
 				A1B84AE718AB56EC00A4B6E9 /* MarkRenderer.m in Sources */,
+				A19B401D18AD165C006E3109 /* SizePicker.m in Sources */,
 				A1B9F26E1886BD2300689E5D /* Scribble.m in Sources */,
 				A1A5B1D21875437900AB2E26 /* Model.xcdatamodeld in Sources */,
 				A1B9F27C1887BCC700689E5D /* ScribbleThumbnailViewImageProxy.m in Sources */,
@@ -478,7 +485,6 @@
 				A1B9F2711886BD5400689E5D /* ScribbleManager.m in Sources */,
 				A192007B186972F100934DC1 /* Pen.m in Sources */,
 				A192008118697C1900934DC1 /* GalleryViewController.m in Sources */,
-				A14F0F98187D6E6800A520ED /* StationeryToolbar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

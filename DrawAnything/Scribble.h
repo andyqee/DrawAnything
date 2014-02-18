@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 andy. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 
 #import <Foundation/Foundation.h>
 #import "Mark.h"

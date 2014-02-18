@@ -1,14 +1,14 @@
 //
-//  StaioneryToolbarButton.m
+//  ColorPicker.m
 //  DrawAnything
 //
-//  Created by andy on 8/1/14.
+//  Created by andy on 13/2/14.
 //  Copyright (c) 2014 andy. All rights reserved.
 //
 
-#import "StaioneryToolbarButton.h"
+#import "ColorPicker.h"
 
-@implementation StaioneryToolbarButton
+@implementation ColorPicker
 
 - (id)initWithFrame:(CGRect)frame
 {

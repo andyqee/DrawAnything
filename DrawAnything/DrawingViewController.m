@@ -11,7 +11,6 @@
 #import "Word.h"
 //#import "Pen.h"
 //#import "Eraser.h"
-#import "StationeryToolbar.h"
 
 #import "Dot.h"
 #import "Stroke.h"
@@ -24,12 +23,15 @@ CGFloat const defaultStrokeSize = 10.0;
 CGFloat const defaultStrokeRed = 0;
 CGFloat const defaultStrokeGreen = 0;
 CGFloat const defaultStrokeBlue = 0;
+CGFloat const radius = 130;
 
+BOOL const COLORPICKER = NO;
+BOOL const SIZEPICKER = YES;
 
 @interface DrawingViewController()
 
 @property (strong, nonatomic) IBOutlet UIView *canvasViewContainer;
-@property (strong, nonatomic) StationeryToolbar *stationaryToolbar;
+
 @property (strong, nonatomic) NSArray *wordList;
 @property (readwrite) NSUInteger cur;                 // store the current index of wordList
 @property (readwrite) NSString *navigationTitle;
@@ -41,6 +43,7 @@ CGFloat const defaultStrokeBlue = 0;
 @property (strong, nonatomic) Scribble *scribble;
 
 @property (strong, nonatomic) DrawingCanvas *canvas;
+@property (strong, nonatomic) BasePickerView *pickerView;
 @property (readwrite) CGPoint startPoint;
 
 - (IBAction)skipAction:(id)sender;
@@ -73,6 +76,8 @@ CGFloat const defaultStrokeBlue = 0;
     self.navigationItem.title = title;
 
     [self loadButtomToolbar];
+    [self loadStrokeSizePicker];
+    [self loadStrokeColorPicker];
     [self createCanvas];
     [self setUpScribble];
     [self setUpDefaultStroke];
@@ -258,6 +263,33 @@ CGFloat const defaultStrokeBlue = 0;
     [invocation invoke];
 }
 
+#pragma mark - Stroke size and color picker
+
+- (IBAction)showSizePicker:(id)sender
+{
+    if (_pickerView) {
+        _pickerView = nil;
+    }
+    _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center radius:radius inView:self.canvas];
+    _pickerView.delegate = self;
+    [_pickerView show:SIZEPICKER];
+
+}
+
+- (IBAction)showColorPicker:(id)sender
+{
+    if (_pickerView) {
+        _pickerView = nil;
+    }
+//    _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center radius:radius inView:self.view];
+    _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center radius:radius inView:_canvas];
+    _pickerView.delegate = self;
+    [_pickerView show:COLORPICKER];
+    
+}
+
+#pragma mark - Undo and redo action
+
 - (IBAction)undo:(id)sender
 {
     [self.undoManager undo];
@@ -300,8 +332,20 @@ CGFloat const defaultStrokeBlue = 0;
     
 }
 
+- (void)loadStrokeSizePicker
+{
+    
+}
+
+- (void)loadStrokeColorPicker
+{
+
+}
+
 #pragma mark -
-- (IBAction)skipAction:(id)sender {
+
+- (IBAction)skipAction:(id)sender
+{
     [self deleteCachedDrawing];
     [self updateWordState];
     
@@ -317,5 +361,18 @@ CGFloat const defaultStrokeBlue = 0;
 - (BOOL)shouldAutorotate
 {
     return NO;
+}
+
+#pragma mark - implement BasePickerViewDelegate method
+
+- (void)strokeColorPickerBubble:(BasePickerView *)pickerView tappedBubbleColor:(UIColor *)color
+{
+    _strokeColor = color;
+    NSLog(@"Stroke Color has been set!");
+}
+
+- (void)BubblesDidHide
+{
+
 }
 @end
