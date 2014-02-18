@@ -31,10 +31,12 @@
 - (IBAction)showSizePicker:(id)sender;
 
 - (IBAction)showColorPicker:(id)sender;
+- (IBAction)showEraserPicker:(id)sender;
 
 - (IBAction)undo:(id)sender;
 
 - (IBAction)redo:(id)sender;
+- (IBAction)Save:(id)sender;
 
 @end
 

@@ -22,7 +22,9 @@
 
 //- (id)initWithPoint:(CGPoint)point radius:(int)radiusValue inView:(UIView *)inView buttonType:(BOOL)Type;
 - (id)initWithPoint:(CGPoint)point radius:(int)radiusValue inView:(UIView *)inView;
--(void)show:(BOOL)type;
+-(void)showColorPickerBubble;
+- (void)showSizePickerBubble:(UIColor *)strokeColor;
+
 -(void)hide;
 
 @end
@@ -31,6 +33,8 @@
 
 @required
 - (void)strokeColorPickerBubble:(BasePickerView *)pickerView tappedBubbleColor:(UIColor*)color;
+- (void)strokeSizePickerBubble:(BasePickerView *)pickerView tappedBubbleSize:(NSNumber*)bubblesize;
+
 
 @optional
 - (void)BubblesDidHide;

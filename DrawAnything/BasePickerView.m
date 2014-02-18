@@ -26,7 +26,7 @@ int const BubbleButtonNumber = 6;
 @property (nonatomic,strong) NSMutableArray *bubbles;
 @property (nonatomic,strong) NSMutableDictionary *bubblesIndex;
 @property (nonatomic,strong) NSMutableDictionary *bubblesColorIndex;
-
+@property (nonatomic,strong) NSMutableDictionary *bubblesSizeIndex;
 
 @end
 
@@ -47,6 +47,7 @@ int const BubbleButtonNumber = 6;
     
     if (self) {
 //        self.backgroundColor = [UIColor lightGrayColor];
+//        self.alpha = 0.3;
         _radius = radiusValue;
         _parentView = inView;
     }
@@ -67,17 +68,20 @@ int const BubbleButtonNumber = 6;
     }
 }
 
+- (void)sizeButtonTabbed:(UIButton*)button
+{
+    int tag = button.tag;
+    NSNumber* bubbleSize = [_bubblesSizeIndex objectForKey:[NSNumber numberWithInt:tag]];
+//    NSLog(bubbleSize);
+    [self hide];
+    if ([self.delegate respondsToSelector:@selector(strokeSizePickerBubble:tappedBubbleSize:)]) {
+        [self.delegate strokeSizePickerBubble:self tappedBubbleSize:bubbleSize];
+    }
+}
+
 #pragma mark -
 #pragma mark show and hide method
 
-- (void)show:(BOOL)type
-{
-    if (type == YES){
-        [self showSizePickerBubble];
-    }else{
-        [self showColorPickerBubble];
-    }
-}
 
 - (void)hide
 {
@@ -94,9 +98,59 @@ int const BubbleButtonNumber = 6;
     }
 }
 
-- (void)showSizePickerBubble
+- (void)showSizePickerBubble:(UIColor *)strokeColor
 {
-    
+    if (_isAnimating == NO){
+        
+        _isAnimating = YES;
+        [_parentView addSubview:self];
+        _backgroudView = [[UIView alloc] initWithFrame:_parentView.bounds];
+        UITapGestureRecognizer *tapges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewTapped:)];
+        [_backgroudView addGestureRecognizer:tapges];
+        [_parentView insertSubview:_backgroudView belowSubview:self];
+        
+        if (_bubbles) {
+            _bubbles = nil;
+        }
+        _bubbles = [[NSMutableArray alloc]init];
+        _bubblesSizeIndex = [[NSMutableDictionary alloc] init];
+        
+        int size[] = {6,12,16,20,30,40};
+        for (int i = 0;i < BubbleButtonNumber;i++) {
+            [self createSizeButton:size[i] withBackgroudColor: strokeColor];
+            [_bubblesSizeIndex setObject:[NSNumber numberWithInt:size[i] ] forKey:[NSNumber numberWithInt:i]];
+        }
+        
+        if (_bubbles.count == 0) {return;}
+        
+        float bubbleDistanceFromPivot = _radius - _bubbleRadius;
+        float bubblesBetweenAngel = 360 / _bubbles.count;
+        float startAngel = (180 - bubblesBetweenAngel) * 0.5;
+        NSMutableArray *coordinates = [NSMutableArray array];
+        
+        for (int i = 0; i < _bubbles.count; i++) {
+            UIButton *bubble = [_bubbles objectAtIndex:i];
+            bubble.tag = i;
+            
+            float angle = startAngel + i * bubblesBetweenAngel;
+            float x = cos(angle * M_PI / 180) * bubbleDistanceFromPivot + _radius;
+            float y = sin(angle * M_PI / 180) * bubbleDistanceFromPivot + _radius;
+            
+            [coordinates addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:x], @"x", [NSNumber numberWithFloat:y], @"y", nil]];
+            bubble.transform = CGAffineTransformMakeScale(0.001, 0.001);
+            bubble.center = CGPointMake(_radius, _radius);
+        }
+        
+        int inetratorI = 0;
+        for (NSDictionary *coordinate in coordinates)
+        {
+            UIButton *bubble = [_bubbles objectAtIndex:inetratorI];
+            float delayTime = inetratorI * 0.1;
+            [self performSelector:@selector(showBubbleWithAnimation:) withObject:[NSDictionary dictionaryWithObjectsAndKeys:bubble, @"button", coordinate, @"coordinate", nil] afterDelay:delayTime];
+            ++inetratorI;
+        }
+    }
+
 }
 
 - (void) showColorPickerBubble
@@ -106,6 +160,8 @@ int const BubbleButtonNumber = 6;
         _isAnimating = YES;
         [_parentView addSubview:self];
         _backgroudView = [[UIView alloc] initWithFrame:_parentView.bounds];
+        _backgroudView.backgroundColor = [UIColor lightGrayColor];
+        _backgroudView.alpha = 0.3;
         UITapGestureRecognizer *tapges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewTapped:)];
         [_backgroudView addGestureRecognizer:tapges];
         [_parentView insertSubview:_backgroudView belowSubview:self];
@@ -158,10 +214,27 @@ int const BubbleButtonNumber = 6;
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     [button addTarget:self action:@selector(buttonTabbed:) forControlEvents:UIControlEventTouchUpInside];
     button.frame = CGRectMake(0, 0, 2 * size, 2 * size);
-    button.titleLabel.text = @"test";
     
     UIView *circle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 2 * size, 2 * size)];
     circle.backgroundColor = [self colorFromHEX:hex];
+    circle.layer.cornerRadius = size;
+    circle.layer.masksToBounds = YES;
+    circle.opaque = NO;
+    circle.alpha = 0.97;
+    
+    [button setBackgroundImage:[self imageWithView:circle] forState:UIControlStateNormal];
+    [_bubbles addObject:button];
+    [self addSubview:button];
+}
+
+- (void) createSizeButton:(int)size withBackgroudColor:(UIColor *)color
+{
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button addTarget:self action:@selector(sizeButtonTabbed:) forControlEvents:UIControlEventTouchUpInside];
+    button.frame = CGRectMake(0, 0, 2 * size, 2 * size);
+    
+    UIView *circle = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 2 * size, 2 * size)];
+    circle.backgroundColor = color;
     circle.layer.cornerRadius = size;
     circle.layer.masksToBounds = YES;
     circle.opaque = NO;

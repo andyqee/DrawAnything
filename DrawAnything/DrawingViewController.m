@@ -23,7 +23,7 @@ CGFloat const defaultStrokeSize = 10.0;
 CGFloat const defaultStrokeRed = 0;
 CGFloat const defaultStrokeGreen = 0;
 CGFloat const defaultStrokeBlue = 0;
-CGFloat const radius = 130;
+CGFloat const radius = 120;
 
 BOOL const COLORPICKER = NO;
 BOOL const SIZEPICKER = YES;
@@ -75,7 +75,6 @@ BOOL const SIZEPICKER = YES;
  //   self.title = title;
     self.navigationItem.title = title;
 
-    [self loadButtomToolbar];
     [self loadStrokeSizePicker];
     [self loadStrokeColorPicker];
     [self createCanvas];
@@ -272,8 +271,7 @@ BOOL const SIZEPICKER = YES;
     }
     _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center radius:radius inView:self.canvas];
     _pickerView.delegate = self;
-    [_pickerView show:SIZEPICKER];
-
+    [_pickerView showSizePickerBubble:_strokeColor];
 }
 
 - (IBAction)showColorPicker:(id)sender
@@ -284,8 +282,11 @@ BOOL const SIZEPICKER = YES;
 //    _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center radius:radius inView:self.view];
     _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center radius:radius inView:_canvas];
     _pickerView.delegate = self;
-    [_pickerView show:COLORPICKER];
+    [_pickerView showColorPickerBubble];
     
+}
+
+- (IBAction)showEraserPicker:(id)sender {
 }
 
 #pragma mark - Undo and redo action
@@ -300,12 +301,14 @@ BOOL const SIZEPICKER = YES;
     [self.undoManager redo];
 }
 
-#pragma mark -
-
-- (void)loadButtomToolbar
+- (IBAction)Save:(id)sender
 {
+//    UIImage *canvasViewImage = [self.canvas ];
     
 }
+
+#pragma mark -
+
 
 - (void)adjustToolbarSize
 {
@@ -370,7 +373,12 @@ BOOL const SIZEPICKER = YES;
     _strokeColor = color;
     NSLog(@"Stroke Color has been set!");
 }
+- (void)strokeSizePickerBubble:(BasePickerView *)pickerView tappedBubbleSize:(NSNumber*)bubblesize
+{
+    _strokeSize = [bubblesize intValue];
+    NSLog(@"Stroke Size has been set!");
 
+}
 - (void)BubblesDidHide
 {
 
