@@ -12,4 +12,6 @@
 
 @interface GalleryViewController : UITableViewController <NSFetchedResultsControllerDelegate, DrawingViewControllerDelegate>
 
+- (IBAction)createScribble:(id)sender;
+
 @end

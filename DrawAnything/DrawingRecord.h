@@ -15,9 +15,9 @@
 
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSString * snapShotFilePath;
-@property (nonatomic, retain) NSString * creationTime;
+@property (nonatomic, retain) NSDate * creationTime;
 @property (nonatomic, retain) NSDate * finishedTime;
-@property (nonatomic, retain) NSDate * recordFilePath;
+@property (nonatomic, retain) NSString * recordFilePath;
 @property (nonatomic, retain) Word *associate;
 
 @end

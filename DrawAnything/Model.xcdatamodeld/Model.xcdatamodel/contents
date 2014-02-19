@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13B3116" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="DrawingRecord" representedClassName="DrawingRecord" syncable="YES">
-        <attribute name="creationTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="creationTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="finishedTime" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="recordFilePath" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="recordFilePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="snapShotFilePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="associate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Word" syncable="YES"/>
@@ -15,8 +15,8 @@
         <attribute name="state" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
     </entity>
     <elements>
-        <element name="DrawingRecord" positionX="0" positionY="0" width="128" height="135"/>
-        <element name="Word" positionX="0" positionY="0" width="128" height="90"/>
-        <element name="Entity" positionX="9" positionY="54" width="128" height="45"/>
+        <element name="DrawingRecord" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Entity" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Word" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

@@ -44,7 +44,7 @@ int const BubbleButtonNumber = 6;
 - (id)initWithPoint:(CGPoint)point radius:(int)radiusValue inView:(UIView *)inView
 {
     self = [super initWithFrame:CGRectMake(point.x - radiusValue, point.y - radiusValue, radiusValue * 2, radiusValue * 2)];
-    
+//    self = [super initWithFrame:CGRectMake(0,0, inView.bounds.size.width, inView.bounds.size.height)];
     if (self) {
 //        self.backgroundColor = [UIColor lightGrayColor];
 //        self.alpha = 0.3;
@@ -72,7 +72,6 @@ int const BubbleButtonNumber = 6;
 {
     int tag = button.tag;
     NSNumber* bubbleSize = [_bubblesSizeIndex objectForKey:[NSNumber numberWithInt:tag]];
-//    NSLog(bubbleSize);
     [self hide];
     if ([self.delegate respondsToSelector:@selector(strokeSizePickerBubble:tappedBubbleSize:)]) {
         [self.delegate strokeSizePickerBubble:self tappedBubbleSize:bubbleSize];
@@ -115,7 +114,7 @@ int const BubbleButtonNumber = 6;
         _bubbles = [[NSMutableArray alloc]init];
         _bubblesSizeIndex = [[NSMutableDictionary alloc] init];
         
-        int size[] = {6,12,16,20,30,40};
+        int size[] = {3,6,12,16,20,25};
         for (int i = 0;i < BubbleButtonNumber;i++) {
             [self createSizeButton:size[i] withBackgroudColor: strokeColor];
             [_bubblesSizeIndex setObject:[NSNumber numberWithInt:size[i] ] forKey:[NSNumber numberWithInt:i]];

@@ -9,9 +9,6 @@
 #import "DrawingViewController.h"
 #import "DrawingRecord.h"
 #import "Word.h"
-//#import "Pen.h"
-//#import "Eraser.h"
-
 #import "Dot.h"
 #import "Stroke.h"
 #import "DrawingCanvas.h"
@@ -23,7 +20,7 @@ CGFloat const defaultStrokeSize = 10.0;
 CGFloat const defaultStrokeRed = 0;
 CGFloat const defaultStrokeGreen = 0;
 CGFloat const defaultStrokeBlue = 0;
-CGFloat const radius = 120;
+CGFloat const radius = 130;
 
 BOOL const COLORPICKER = NO;
 BOOL const SIZEPICKER = YES;
@@ -45,6 +42,11 @@ BOOL const SIZEPICKER = YES;
 @property (strong, nonatomic) DrawingCanvas *canvas;
 @property (strong, nonatomic) BasePickerView *pickerView;
 @property (readwrite) CGPoint startPoint;
+
+@property (nonatomic) NSDate *startTime;
+@property (nonatomic) NSDate *endTime;
+@property (strong,nonatomic) NSString *recordFilePath;
+@property (strong,nonatomic) NSString *snapshotFilePath;
 
 - (IBAction)skipAction:(id)sender;
 - (IBAction)doneAction:(id)sender;
@@ -70,16 +72,16 @@ BOOL const SIZEPICKER = YES;
     [self loadWordList];
     _cur = self.wordList.count - 1;
  //   NSString *title = [self pickNextFromWordList];
-    NSString *title = @"testTitle";
+    _navigationTitle = @"testTitle";
   //  self.navigationController.title = title;
  //   self.title = title;
-    self.navigationItem.title = title;
+    self.title = _navigationTitle;
 
-    [self loadStrokeSizePicker];
-    [self loadStrokeColorPicker];
     [self createCanvas];
     [self setUpScribble];
     [self setUpDefaultStroke];
+    self.startTime = [NSDate date];
+    
 }
 
 - (void)createCanvas
@@ -123,7 +125,7 @@ BOOL const SIZEPICKER = YES;
 
 - (void)loadWordList
 {
-    self.managedObjectContext = [CoreDataManager defaultContext];
+//    self.managedObjectContext = [CoreDataManager defaultContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
@@ -279,14 +281,14 @@ BOOL const SIZEPICKER = YES;
     if (_pickerView) {
         _pickerView = nil;
     }
-//    _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center radius:radius inView:self.view];
-    _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center radius:radius inView:_canvas];
+    _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center radius:radius inView:self.canvas];
     _pickerView.delegate = self;
     [_pickerView showColorPickerBubble];
-    
 }
 
-- (IBAction)showEraserPicker:(id)sender {
+- (IBAction)showEraserPicker:(id)sender
+{
+    _strokeColor = [UIColor colorWithWhite:1 alpha:1];
 }
 
 #pragma mark - Undo and redo action
@@ -303,46 +305,81 @@ BOOL const SIZEPICKER = YES;
 
 - (IBAction)Save:(id)sender
 {
-//    UIImage *canvasViewImage = [self.canvas ];
-    
+    self.endTime = [NSDate date];
+    UIImage *canvasViewImage = [self getImage];
+    [self saveImage: canvasViewImage WithName:@"testName"];//
+    [self saveDrawingRecordFileWithName:@"drawingRecordFileName"];
+    [self updateWordState];
+    [self updateDrawingRecordState];
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"The snapshot of scribble is saved"
+                                                        message:nil
+                                                       delegate:nil
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+    [alertView show];
 }
 
 #pragma mark -
 
 
-- (void)adjustToolbarSize
-{
-    
-}
-
-- (void)createToolbarItems
-{
-    
-}
-
+#warning waiting to implement
 - (void)deleteCachedDrawing
 {
     
 }
 
+#warning waiting to implement
 - (void)updateWordState
 {
     
 }
 
-- (void)saveDrawing
+- (void)updateDrawingRecordState
 {
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:@"DrawingRecord" inManagedObjectContext:self.managedObjectContext]];
     
+    NSError *error = nil;
+    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title == %@", @"Some Title"];
+    [request setPredicate:predicate];
+    
+    if (results.count != 0) {
+        NSManagedObject *targetDrawingRecord = [results objectAtIndex:0];
+        [targetDrawingRecord setValue:self.startTime forKey:@"creationTime"];
+        [targetDrawingRecord setValue:self.endTime forKey:@"finishedTime"];
+        [targetDrawingRecord setValue:self.recordFilePath forKey:@"recordFilePath"];
+        [targetDrawingRecord setValue:self.snapshotFilePath forKey:@"snapShotFilePath"];
+        [targetDrawingRecord setValue:self.navigationTitle forKey:@"title"] ;
+    }
 }
 
-- (void)loadStrokeSizePicker
+
+- (UIImage *)getImage
 {
-    
+    UIGraphicsBeginImageContextWithOptions(self.canvas.bounds.size, NO, 0);
+    [self.canvas.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage * img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return img;
 }
 
-- (void)loadStrokeColorPicker
-{
+#pragma mark - persistent method
 
+- (void)saveImage:(UIImage *)image WithName:(NSString *)imageName
+{
+    if (image != nil) {
+        NSData *imageData = UIImagePNGRepresentation(image);
+        NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+        NSString *documentPath = [path objectAtIndex:0];
+        self.snapshotFilePath = [documentPath stringByAppendingString:imageName];
+        [imageData writeToFile:(NSString *)self.snapshotFilePath atomically:YES];
+    }
+}
+
+- (void)saveDrawingRecordFileWithName:(NSString *)recordName
+{
+    
 }
 
 #pragma mark -
@@ -355,10 +392,10 @@ BOOL const SIZEPICKER = YES;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)doneAction:(id)sender
-{
-    [self saveDrawing];
-}
+//- (IBAction)doneAction:(id)sender
+//{
+//    [self saveDrawing];
+//}
 
 // We do not support auto-rotation
 - (BOOL)shouldAutorotate
@@ -373,12 +410,14 @@ BOOL const SIZEPICKER = YES;
     _strokeColor = color;
     NSLog(@"Stroke Color has been set!");
 }
+
 - (void)strokeSizePickerBubble:(BasePickerView *)pickerView tappedBubbleSize:(NSNumber*)bubblesize
 {
     _strokeSize = [bubblesize intValue];
     NSLog(@"Stroke Size has been set!");
 
 }
+
 - (void)BubblesDidHide
 {
 

@@ -41,7 +41,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
     
 //    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(startNewDrawing:)];
@@ -67,18 +66,7 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-//    [super viewDidAppear:animated];
-//    
-//    DrawingViewController *dvc = [[DrawingViewController alloc] init];
-//    [self.navigationController pushViewController:dvc animated:YES];
 
-}
-
-#pragma mark - waiting for implement
-
-- (void)startNewDrawing:(id)sender
-{
-    
 }
 
 #pragma mark - Table view data source methods
@@ -308,22 +296,17 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"drawingSegue"])
-    {
-        /*
-         The destination view controller for this segue is an DrawingViewController to add a new Drawingrocord.
-         This block creates a new managed object context as a child of the root view controller's context. It then creates a new Drawing record using the child context. This means that changes made to the record remain discrete from the application's managed object context until the record's context is saved.
-         The root view controller sets itself as the delegate of the add controller so that it can be informed when the user has completed the add operation -- either saving or canceling (see addViewController:didFinishWithSave:).
-         IMPORTANT: It's not necessary to use a second context for this. You could just use the existing context, which would simplify some of the code -- you wouldn't need to perform two saves, for example. This implementation, though, illustrates a pattern that may sometimes be useful (where you want to maintain a separate set of edits).
-         */
+    {        
+   //     UINavigationController *navController = (UINavigationController *)[segue destinationViewController];
         
-        UINavigationController *navController = (UINavigationController *)[segue destinationViewController];
-        DrawingViewController *drawingViewController = (DrawingViewController *)[navController topViewController];
+    //    DrawingViewController *drawingViewController = (DrawingViewController *)[navController topViewController];
+        DrawingViewController *drawingViewController = (DrawingViewController *)[segue destinationViewController];
+
         drawingViewController.delegate = self;
-        
         // Create a new managed object context for the Drawing record; set its parent to the fetched results controller's context.
-        NSManagedObjectContext *addingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        [addingContext setParentContext:[self.fetchedResultsController managedObjectContext]];
-        
+   //     NSManagedObjectContext *addingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+  //      [addingContext setParentContext:[self.fetchedResultsController managedObjectContext]];
+        NSManagedObjectContext *addingContext = [CoreDataManager defaultContext];
         DrawingRecord *newDrawingRecord = (DrawingRecord *)[NSEntityDescription insertNewObjectForEntityForName:@"DrawingRecord" inManagedObjectContext:addingContext];
         drawingViewController.drawingRecord = newDrawingRecord;
         drawingViewController.managedObjectContext = addingContext;
@@ -376,4 +359,8 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)createScribble:(id)sender
+{
+    
+}
 @end

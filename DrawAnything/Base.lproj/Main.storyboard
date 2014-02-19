@@ -45,7 +45,8 @@
                     <navigationItem key="navigationItem" title="Gallery" id="EyA-Qb-YC9">
                         <barButtonItem key="rightBarButtonItem" title="Create" id="8pG-Yg-e8h">
                             <connections>
-                                <segue destination="vXZ-lx-hvc" kind="push" id="um1-O0-keI"/>
+                                <action selector="createScribble:" destination="x7I-2n-2CF" id="SYY-Ye-f0I"/>
+                                <segue destination="vXZ-lx-hvc" kind="push" identifier="drawingSegue" id="um1-O0-keI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -64,7 +65,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="986" y="339"/>
+            <point key="canvasLocation" x="1000" y="323"/>
         </scene>
         <!--Player View Controller - Player-->
         <scene sceneID="slr-6g-7rQ">
@@ -106,7 +107,7 @@
             <objects>
                 <viewController title="CreateDrawing" id="vXZ-lx-hvc" customClass="DrawingViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="FKr-ej-f6K">
@@ -114,8 +115,36 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Jl4-a2-LVf">
+                                <rect key="frame" x="271" y="20" width="36" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Skip">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="skip:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="pcG-b9-0bS"/>
+                                    <action selector="skipAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="B0L-9f-Zoa"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fVj-ri-aIs">
+                                <rect key="frame" x="6" y="20" width="37" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Done">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="MFv-lS-GYd"/>
+                                    <action selector="skip:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="9ns-cH-Faa"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3d6-2o-iwg">
+                                <rect key="frame" x="139" y="24" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="sJM-ZM-SJk">
-                                <rect key="frame" x="0.0" y="436" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
@@ -146,9 +175,6 @@
                                             <action selector="redo:" destination="vXZ-lx-hvc" id="PWt-cU-aRe"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="删除" style="plain" id="OdN-7z-m0w">
-                                        <color key="tintColor" red="0.71372550729999995" green="0.90980398650000005" blue="0.40392160420000001" alpha="1" colorSpace="deviceRGB"/>
-                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="wKi-u3-x7n"/>
                                     <barButtonItem title="Save" style="plain" id="FYS-8H-ap9">
                                         <connections>
@@ -158,38 +184,11 @@
                                 </items>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </toolbar>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Jl4-a2-LVf">
-                                <rect key="frame" x="271" y="20" width="36" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Skip">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="skip:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="pcG-b9-0bS"/>
-                                    <action selector="skipAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="B0L-9f-Zoa"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fVj-ri-aIs">
-                                <rect key="frame" x="6" y="20" width="37" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Done">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="doneAction:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="MFv-lS-GYd"/>
-                                    <action selector="skip:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="9ns-cH-Faa"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3d6-2o-iwg">
-                                <rect key="frame" x="139" y="24" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="M0d-C0-LnH"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="canvasViewContainer" destination="FKr-ej-f6K" id="sFq-d5-Im1"/>
                     </connections>
