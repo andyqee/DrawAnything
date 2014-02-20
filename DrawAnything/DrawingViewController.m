@@ -71,8 +71,8 @@ BOOL const SIZEPICKER = YES;
     
     [self loadWordList];
     _cur = self.wordList.count - 1;
- //   NSString *title = [self pickNextFromWordList];
-    _navigationTitle = @"testTitle";
+    NSString *title = [self pickNextFromWordList];
+    _navigationTitle = title;
   //  self.navigationController.title = title;
  //   self.title = title;
     self.title = _navigationTitle;
@@ -353,7 +353,6 @@ BOOL const SIZEPICKER = YES;
         [targetDrawingRecord setValue:self.navigationTitle forKey:@"title"] ;
     }
 }
-
 
 - (UIImage *)getImage
 {

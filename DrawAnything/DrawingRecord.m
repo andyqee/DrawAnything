@@ -9,7 +9,6 @@
 #import "DrawingRecord.h"
 #import "Word.h"
 
-
 @implementation DrawingRecord
 
 @dynamic title;

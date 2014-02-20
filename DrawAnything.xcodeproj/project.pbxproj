@@ -35,6 +35,7 @@
 		A1A5B1D21875437900AB2E26 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A1A5B1D01875437900AB2E26 /* Model.xcdatamodeld */; };
 		A1A91283186F0B80006CEE8D /* WordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A91282186F0B80006CEE8D /* WordManager.m */; };
 		A1A91286186F13AA006CEE8D /* WordHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A91285186F13AA006CEE8D /* WordHelper.m */; };
+		A1AEEC0018B4E06B000BEDA1 /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A1AEEBFF18B4E06B000BEDA1 /* XMLParser.m */; };
 		A1B84AE718AB56EC00A4B6E9 /* MarkRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B84AE618AB56EC00A4B6E9 /* MarkRenderer.m */; };
 		A1B9F2601884CACE00689E5D /* DrawingCanvas.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B9F25F1884CACE00689E5D /* DrawingCanvas.m */; };
 		A1B9F2631886280A00689E5D /* Dot.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B9F2621886280A00689E5D /* Dot.m */; };
@@ -104,6 +105,8 @@
 		A1A91282186F0B80006CEE8D /* WordManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordManager.m; sourceTree = "<group>"; };
 		A1A91284186F13AA006CEE8D /* WordHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordHelper.h; sourceTree = "<group>"; };
 		A1A91285186F13AA006CEE8D /* WordHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordHelper.m; sourceTree = "<group>"; };
+		A1AEEBFE18B4E06B000BEDA1 /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLParser.h; sourceTree = "<group>"; };
+		A1AEEBFF18B4E06B000BEDA1 /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLParser.m; sourceTree = "<group>"; };
 		A1B84AE518AB56EC00A4B6E9 /* MarkRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarkRenderer.h; sourceTree = "<group>"; };
 		A1B84AE618AB56EC00A4B6E9 /* MarkRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarkRenderer.m; sourceTree = "<group>"; };
 		A1B9F25E1884CACE00689E5D /* DrawingCanvas.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingCanvas.h; sourceTree = "<group>"; };
@@ -175,13 +178,6 @@
 			name = toolbarItemModel;
 			sourceTree = "<group>";
 		};
-		A14F0F8C187CDCCC00A520ED /* Picker */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Picker;
-			sourceTree = "<group>";
-		};
 		A1920037186820E000934DC1 = {
 			isa = PBXGroup;
 			children = (
@@ -217,7 +213,6 @@
 			children = (
 				A1920052186820E000934DC1 /* DATAppDelegate.h */,
 				A1920053186820E000934DC1 /* DATAppDelegate.m */,
-				A14F0F8C187CDCCC00A520ED /* Picker */,
 				A1A91280186E7D1A006CEE8D /* View Controllers */,
 				A1B9F2791887BC0200689E5D /* View */,
 				A19200781868273F00934DC1 /* Model */,
@@ -335,6 +330,8 @@
 			children = (
 				A1B84AE518AB56EC00A4B6E9 /* MarkRenderer.h */,
 				A1B84AE618AB56EC00A4B6E9 /* MarkRenderer.m */,
+				A1AEEBFE18B4E06B000BEDA1 /* XMLParser.h */,
+				A1AEEBFF18B4E06B000BEDA1 /* XMLParser.m */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -470,6 +467,7 @@
 				A1A5B1D21875437900AB2E26 /* Model.xcdatamodeld in Sources */,
 				A1B9F27C1887BCC700689E5D /* ScribbleThumbnailViewImageProxy.m in Sources */,
 				A192008718697CDF00934DC1 /* DrawingViewController.m in Sources */,
+				A1AEEC0018B4E06B000BEDA1 /* XMLParser.m in Sources */,
 				A192008418697C4A00934DC1 /* PlayerViewController.m in Sources */,
 				A16B37091877BE2F00A33BB0 /* Word.m in Sources */,
 				A1B9F26618865BC600689E5D /* Stroke.m in Sources */,

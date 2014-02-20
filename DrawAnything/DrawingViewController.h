@@ -14,8 +14,6 @@
 #import "CoreDataManager.h"
 #import "BasePickerView.h"
 
-//#import "DetailViewController.h"
-
 @protocol DrawingViewControllerDelegate;
 
 @interface DrawingViewController : PlayerViewController<UIGestureRecognizerDelegate,BasePickerViewDelegate>

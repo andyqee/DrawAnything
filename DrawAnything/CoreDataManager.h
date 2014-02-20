@@ -20,6 +20,8 @@
 
 + (instancetype)sharedManager;
 + (NSManagedObjectContext *)defaultContext;
++ (BOOL)insertDataToDB:(NSArray*)dataSource withEntityName:(NSString*)entityName;
++ (NSArray*)fetchDataFromDBWithEntityName:(NSString*)entityName;
 
 //- (BOOL)saveContext;
 //- (void)useInMemoryStore;

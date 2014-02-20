@@ -33,6 +33,22 @@
     return [[CoreDataManager sharedManager]managedObjectContext];
 }
 
++ (BOOL)insertDataToDB:(NSArray*)dataSource withEntityName:(NSString*)entityName;
+{
+    BOOL success = NO;
+//    NSArray *fetchedData = [CoreDataManager fetchDataFromDBWithEntityName:entityName];
+    
+    
+    return success;
+}
+
++ (NSArray*)fetchDataFromDBWithEntityName:(NSString*)entityName;
+{
+    NSArray *result;
+    
+    return result;
+}
+
 #pragma mark - core data stack
 
 - (NSURL *)applicationDocumentsDirectory
@@ -51,7 +67,6 @@
         _managedObjectContext = [NSManagedObjectContext new];
         [_managedObjectContext setPersistentStoreCoordinator:coordinator];
     }
-    
     return _managedObjectContext;
 }
 

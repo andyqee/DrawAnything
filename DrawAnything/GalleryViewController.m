@@ -99,7 +99,6 @@
     
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         
-        // Delete the managed object.
         NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
         [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
         
@@ -235,61 +234,11 @@
 
 #pragma mark - core Date stack
 
-//- (NSURL *)applicationDocumentsDirectory
-//{
-//    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-//}
-//
 - (NSManagedObjectContext *)managedObjectContext
 {
     _managedObjectContext = [CoreDataManager defaultContext];
     return _managedObjectContext;
 }
-
-//
-//- (NSManagedObjectModel *)managedObjectModel
-//{
-//    if (_managedObjectModel != nil) {
-//        return _managedObjectModel;
-//    }
-//    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Model" withExtension:@"momd"];
-//    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-//    
-//    return _managedObjectModel;
-//}
-//
-//- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
-//{
-//    if (_persistentStoreCoordinator != nil) {
-//        return _persistentStoreCoordinator;
-//    }
-//    
-//    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"Model.CDBStore"];
-//    
-//    /*
-//     Set up the store.
-//     For the sake of illustration, provide a pre-populated default store.
-//     */
-//    NSFileManager *fileManager = [NSFileManager defaultManager];
-//    // If the expected store doesn't exist, copy the default store.
-//    if (![fileManager fileExistsAtPath:[storeURL path]]) {
-//        NSURL *defaultStoreURL = [[NSBundle mainBundle] URLForResource:@"Model" withExtension:@"CDBStore"];
-//        if (defaultStoreURL) {
-//            [fileManager copyItemAtURL:defaultStoreURL toURL:storeURL error:NULL];
-//        }
-//    }
-//    
-//    NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES, NSInferMappingModelAutomaticallyOption: @YES};
-//    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];
-//    
-//    NSError *error;
-//    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error]) {
-//        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-//        abort();
-//    }
-//    
-//    return _persistentStoreCoordinator;
-//}
 
 #pragma mark - Segue management
 

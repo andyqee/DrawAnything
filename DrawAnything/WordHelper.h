@@ -14,7 +14,6 @@ typedef NS_ENUM(NSInteger, WordStateType){
     Fresh,
     Inuse,
     Pending,
-
 };
 
 

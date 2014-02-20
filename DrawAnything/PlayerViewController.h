@@ -21,8 +21,6 @@
 
 @interface PlayerViewController (Private)
 
-
-
 - (void)setUpUndoManager;
 - (void)cleanUpUndoManager;
 

@@ -7,10 +7,14 @@
 //
 
 #import "DATAppDelegate.h"
+#import "XMLParser.h"
+#import "CoreDataManager.h"
+#import "WordHelper.h"
 
 @interface DATAppDelegate()
 
 @property (strong,readwrite) UIDocument *document;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @end
 
@@ -52,28 +56,66 @@
 
 - (void)setUpWordLib
 {    
-    //  [self applicationDirectory];
-    NSArray* searchPath = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
-    NSString* documentFilePath = ([searchPath count] > 0) ? [searchPath objectAtIndex:0] : nil;
-    NSString* wordLibPath = [documentFilePath stringByAppendingString:@"wordLibAtDoc.plist"];
-    
-    NSFileManager* fm = [NSFileManager defaultManager];
-    BOOL wordLibFileIsInDocument = [fm fileExistsAtPath:wordLibPath];
-    if (!wordLibFileIsInDocument) {
-        // copy the wordLib in supporting folder to document folder;
-        NSURL* supportingFilePath = [[NSBundle mainBundle] URLForResource:@"WordLib" withExtension:@"plist"];
-        NSData* sourceDataOfwordLibInSupportingFolder = [NSData dataWithContentsOfURL:supportingFilePath];
-        
-        [fm createFileAtPath:@"wordLibAtDoc.plist" contents:sourceDataOfwordLibInSupportingFolder attributes:nil];
-        
-    }
-    // create playlist file if it does not exit
-    NSString* recordPlayListPath = [documentFilePath stringByAppendingString:@"recordPlayListPath"];
-    if (![fm fileExistsAtPath:recordPlayListPath]) {
-        [fm createFileAtPath:@"recordPlayList.plist" contents:nil attributes:nil];
-        
+    self.managedObjectContext = [CoreDataManager defaultContext];
+    NSArray* words = [CoreDataManager fetchDataFromDBWithEntityName:@"Word"];
+    if (words.count == 0) {
+        words = [self fetchDataFromPlist];
+        [self insertDataToDB:words];
     }
 }
+- (NSArray*)fetchDataFromDBWithEntityName: (NSString*)entityName
+{
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    [request setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext]];
 
+    NSError *error = nil;
+    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+    return results;
+}
 
+- (NSArray*)fetchDataFromPlist
+{
+    NSString *rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *plistPath = [rootPath stringByAppendingPathComponent:@"WordsLib.plist"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
+        plistPath = [[NSBundle mainBundle] pathForResource:@"WordsLib" ofType:@"plist"];
+    }
+    NSString *errorDesc = nil;
+    NSPropertyListFormat format;
+    NSData *plistXML = [[NSFileManager defaultManager] contentsAtPath:plistPath];
+    NSDictionary *temp = (NSDictionary *)[NSPropertyListSerialization
+                                          propertyListFromData:plistXML
+                                          mutabilityOption:NSPropertyListMutableContainersAndLeaves
+                                          format:&format
+                                          errorDescription:&errorDesc];
+    if (!temp) {
+        NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
+    }
+    
+    return [NSMutableArray arrayWithArray:[temp objectForKey:@"WordList"]];
+    
+}
+
+- (void)insertDataToDB:(NSArray*)words
+{
+    NSInteger i = 0;
+    for (id wordCell in words) {
+        Word *newWord = [NSEntityDescription insertNewObjectForEntityForName:@"Word" inManagedObjectContext:self.managedObjectContext];
+        newWord.name = (NSString*)wordCell;
+        newWord.state = [NSNumber numberWithInteger:Fresh];
+        newWord.grade = [NSNumber numberWithInteger:i++];
+    }
+    NSError *error;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
+    }
+
+}
+
+- (NSString*)getPlistFilePath
+{
+    NSString* wordLibPath = [[NSBundle mainBundle] pathForResource:@"WordsLib" ofType:@"plist"];
+    return wordLibPath;
+}
+         
 @end
