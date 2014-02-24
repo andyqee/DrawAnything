@@ -26,6 +26,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.title = self.drawingRecord.title;
+    NSData *imageData = [[NSData alloc]initWithContentsOfFile:self.drawingRecord.snapShotFilePath];
+    UIImage *snapShotImage = [[UIImage alloc]initWithData:imageData];
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:snapShotImage];
+    imageView.frame = self.view.frame;
+    [self.uiView addSubview:imageView];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -36,7 +42,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
 
-
+    
 }
 
 
