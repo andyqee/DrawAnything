@@ -14,6 +14,7 @@
 #import "DrawingCanvas.h"
 #import "Scribble.h"
 #import "Vertex.h"
+#import "WordHelper.h"
 
 //CONSTANTS:
 CGFloat const defaultStrokeSize = 10.0;
@@ -74,14 +75,12 @@ BOOL const SIZEPICKER = YES;
     NSString *title = [self pickNextFromWordList];
     _navigationTitle = title;
   //  self.navigationController.title = title;
- //   self.title = title;
     self.title = _navigationTitle;
 
     [self createCanvas];
     [self setUpScribble];
     [self setUpDefaultStroke];
     self.startTime = [NSDate date];
-    
 }
 
 - (void)createCanvas
@@ -125,7 +124,6 @@ BOOL const SIZEPICKER = YES;
 
 - (void)loadWordList
 {
-//    self.managedObjectContext = [CoreDataManager defaultContext];
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
@@ -307,10 +305,14 @@ BOOL const SIZEPICKER = YES;
 {
     self.endTime = [NSDate date];
     UIImage *canvasViewImage = [self getImage];
-    [self saveImage: canvasViewImage WithName:@"testName"];//
+    // Create a unique file name
+    NSString *imageName = [NSString stringWithFormat:@"image-%@.png", self.navigationTitle];
+
+    [self saveImage: canvasViewImage WithName:imageName];//
     [self saveDrawingRecordFileWithName:@"drawingRecordFileName"];
     [self updateWordState];
-    [self updateDrawingRecordState];
+    [self addDrawingRecord];
+    [self saveContext];
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"The snapshot of scribble is saved"
                                                         message:nil
                                                        delegate:nil
@@ -323,34 +325,47 @@ BOOL const SIZEPICKER = YES;
 
 
 #warning waiting to implement
+
 - (void)deleteCachedDrawing
 {
     
 }
 
-#warning waiting to implement
 - (void)updateWordState
 {
-    
-}
-
-- (void)updateDrawingRecordState
-{
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:[NSEntityDescription entityForName:@"DrawingRecord" inManagedObjectContext:self.managedObjectContext]];
+    [request setEntity:[NSEntityDescription entityForName:@"Word" inManagedObjectContext:self.managedObjectContext]];
     
     NSError *error = nil;
-    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"title == %@", @"Some Title"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", self.navigationTitle];
     [request setPredicate:predicate];
-    
+    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+
     if (results.count != 0) {
-        NSManagedObject *targetDrawingRecord = [results objectAtIndex:0];
-        [targetDrawingRecord setValue:self.startTime forKey:@"creationTime"];
-        [targetDrawingRecord setValue:self.endTime forKey:@"finishedTime"];
-        [targetDrawingRecord setValue:self.recordFilePath forKey:@"recordFilePath"];
-        [targetDrawingRecord setValue:self.snapshotFilePath forKey:@"snapShotFilePath"];
-        [targetDrawingRecord setValue:self.navigationTitle forKey:@"title"] ;
+        NSManagedObject *targetWord = [results objectAtIndex:0];
+        [targetWord setValue:[NSNumber numberWithInteger:Inuse] forKey:@"state"];
+    }
+}
+
+- (void)addDrawingRecord
+{
+    DrawingRecord *drawingRecord = [NSEntityDescription insertNewObjectForEntityForName:@"DrawingRecord" inManagedObjectContext:self.managedObjectContext];
+    drawingRecord.creationTime = self.startTime;
+    drawingRecord.finishedTime = self.endTime;
+    drawingRecord.recordFilePath = self.recordFilePath;
+    drawingRecord.snapShotFilePath = self.snapshotFilePath;
+    drawingRecord.title = self.navigationTitle;
+
+}
+
+- (void)saveContext
+{
+    NSError *error;
+    if ([self.managedObjectContext hasChanges]) {
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
     }
 }
 
@@ -369,10 +384,12 @@ BOOL const SIZEPICKER = YES;
 {
     if (image != nil) {
         NSData *imageData = UIImagePNGRepresentation(image);
-        NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES);
+        NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *documentPath = [path objectAtIndex:0];
-        self.snapshotFilePath = [documentPath stringByAppendingString:imageName];
-        [imageData writeToFile:(NSString *)self.snapshotFilePath atomically:YES];
+        self.snapshotFilePath = [documentPath stringByAppendingPathComponent: imageName];
+        if (![imageData writeToFile:(NSString *)self.snapshotFilePath atomically:YES]) {
+            NSLog(@"fail to save the image!");
+        };
     }
 }
 

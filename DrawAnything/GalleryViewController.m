@@ -21,6 +21,8 @@
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSString* rootPath;
+
 //@property (nonatomic, strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 //@property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
 
@@ -42,7 +44,7 @@
 {
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    
+    self.rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 //    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(startNewDrawing:)];
 //    self.navigationItem.rightBarButtonItem = addButton;
     
@@ -122,7 +124,10 @@
     DrawingRecord *record = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = record.title;
     
-    NSString *imagePath = record.snapShotFilePath;
+//    NSString *imageName = [NSString stringWithFormat:@"image-%@.png", record.snapShotFilePath];
+//    NSString *imageName =  record.snapShotFilePath;
+//    NSString *imagePath = [self.rootPath stringByAppendingPathComponent:imageName];
+    NSString *imagePath =  record.snapShotFilePath;
     cell.imageView.image = [UIImage imageWithContentsOfFile:imagePath];
 }
 
@@ -163,7 +168,7 @@
                                               inManagedObjectContext:managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSSortDescriptor *creationTimeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"creationTime" ascending:YES];
+    NSSortDescriptor *creationTimeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"creationTime" ascending:NO];
  //   NSSortDescriptor *titleDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:YES];
     NSArray *sortDescriptors = @[creationTimeDescriptor];
   //  NSArray *sortDescriptors = @[creationTimeDescriptor,titleDescriptor];
@@ -246,18 +251,11 @@
 {
     if ([[segue identifier] isEqualToString:@"drawingSegue"])
     {        
-   //     UINavigationController *navController = (UINavigationController *)[segue destinationViewController];
-        
-    //    DrawingViewController *drawingViewController = (DrawingViewController *)[navController topViewController];
         DrawingViewController *drawingViewController = (DrawingViewController *)[segue destinationViewController];
-
         drawingViewController.delegate = self;
-        // Create a new managed object context for the Drawing record; set its parent to the fetched results controller's context.
-   //     NSManagedObjectContext *addingContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-  //      [addingContext setParentContext:[self.fetchedResultsController managedObjectContext]];
         NSManagedObjectContext *addingContext = [CoreDataManager defaultContext];
-        DrawingRecord *newDrawingRecord = (DrawingRecord *)[NSEntityDescription insertNewObjectForEntityForName:@"DrawingRecord" inManagedObjectContext:addingContext];
-        drawingViewController.drawingRecord = newDrawingRecord;
+//        DrawingRecord *newDrawingRecord = (DrawingRecord *)[NSEntityDescription insertNewObjectForEntityForName:@"DrawingRecord" inManagedObjectContext:addingContext];
+//        drawingViewController.drawingRecord = newDrawingRecord;
         drawingViewController.managedObjectContext = addingContext;
     }
     else if ([[segue identifier] isEqualToString:@"playerSegue"])
@@ -265,7 +263,6 @@
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         DrawingRecord *selectedRecord = (DrawingRecord *)[[self fetchedResultsController] objectAtIndexPath:indexPath];
         
-        // Pass the selected drawing record to the new view controller.
         PlayerViewController *playerViewController = (PlayerViewController *)[segue destinationViewController];
         playerViewController.drawingRecord = selectedRecord;
     }
@@ -278,28 +275,14 @@
 - (void)drawingViewController:(DrawingViewController *)controller didFinishWithSave:(BOOL)save {
     
     if (save) {
-        /*
-         The new drawing record is associated with the add controller's managed object context.
-         This means that any edits that are made don't affect the application's main managed object context -- it's a way of keeping disjoint edits in a separate scratchpad. Saving changes to that context, though, only push changes to the fetched results controller's context. To save the changes to the persistent store, you have to save the fetch results controller's context as well.
-         */
         NSError *error;
         NSManagedObjectContext *addingManagedObjectContext = [controller managedObjectContext];
         if (![addingManagedObjectContext save:&error]) {
-            /*
-             Replace this implementation with code to handle the error appropriately.
-             
-             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-             */
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
         
         if (![[self.fetchedResultsController managedObjectContext] save:&error]) {
-            /*
-             Replace this implementation with code to handle the error appropriately.
-             
-             abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-             */
             NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
             abort();
         }
@@ -312,4 +295,5 @@
 {
     
 }
+
 @end

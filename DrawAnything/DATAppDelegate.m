@@ -57,7 +57,7 @@
 - (void)setUpWordLib
 {    
     self.managedObjectContext = [CoreDataManager defaultContext];
-    NSArray* words = [CoreDataManager fetchDataFromDBWithEntityName:@"Word"];
+    NSArray* words = [self fetchDataFromDBWithEntityName:@"Word"];
     if (words.count == 0) {
         words = [self fetchDataFromPlist];
         [self insertDataToDB:words];
