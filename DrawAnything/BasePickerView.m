@@ -82,7 +82,7 @@ int const BubbleButtonNumber = 6;
 #pragma mark show and hide method
 
 
-- (void)hide
+- (void) hide
 {
     if(_isAnimating == NO)
     {
@@ -97,13 +97,16 @@ int const BubbleButtonNumber = 6;
     }
 }
 
-- (void)showSizePickerBubble:(UIColor *)strokeColor
+- (void) showSizePickerBubble:(UIColor *)strokeColor
 {
     if (_isAnimating == NO){
         
         _isAnimating = YES;
         [_parentView addSubview:self];
         _backgroudView = [[UIView alloc] initWithFrame:_parentView.bounds];
+        _backgroudView.backgroundColor = [UIColor lightGrayColor];
+        _backgroudView.alpha = 0.3;
+
         UITapGestureRecognizer *tapges = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundViewTapped:)];
         [_backgroudView addGestureRecognizer:tapges];
         [_parentView insertSubview:_backgroudView belowSubview:self];
@@ -250,7 +253,7 @@ int const BubbleButtonNumber = 6;
     [self hide];
 }
 
-- (void)showBubbleWithAnimation:(NSDictionary *)info
+- (void) showBubbleWithAnimation:(NSDictionary *)info
 {
     UIButton *button = (UIButton *)[info objectForKey:@"button"];
     NSDictionary *coordinate = (NSDictionary *)[info objectForKey:@"coordinate"];

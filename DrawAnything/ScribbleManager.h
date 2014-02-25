@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Scribble.h"
-#import "ScribbleThumbnailViewImageProxy.h"
+//#import "ScribbleThumbnailViewImageProxy.h"
 
 @interface ScribbleManager : NSObject
 

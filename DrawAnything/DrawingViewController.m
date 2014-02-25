@@ -21,7 +21,7 @@ CGFloat const defaultStrokeSize = 10.0;
 CGFloat const defaultStrokeRed = 0;
 CGFloat const defaultStrokeGreen = 0;
 CGFloat const defaultStrokeBlue = 0;
-CGFloat const radius = 130;
+CGFloat const radius = 120;
 
 BOOL const COLORPICKER = NO;
 BOOL const SIZEPICKER = YES;
@@ -267,21 +267,26 @@ BOOL const SIZEPICKER = YES;
 - (IBAction)showSizePicker:(id)sender
 {
     if (_pickerView) {
+        [_pickerView hide];
         _pickerView = nil;
+    
+    }else{
+        _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center radius:radius inView:self.canvas];
+        _pickerView.delegate = self;
+        [_pickerView showSizePickerBubble:_strokeColor];
     }
-    _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center radius:radius inView:self.canvas];
-    _pickerView.delegate = self;
-    [_pickerView showSizePickerBubble:_strokeColor];
 }
 
 - (IBAction)showColorPicker:(id)sender
 {
     if (_pickerView) {
+        [_pickerView hide];
         _pickerView = nil;
+    }else{
+        _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center radius:radius inView:self.canvas];
+        _pickerView.delegate = self;
+        [_pickerView showColorPickerBubble];
     }
-    _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center radius:radius inView:self.canvas];
-    _pickerView.delegate = self;
-    [_pickerView showColorPickerBubble];
 }
 
 - (IBAction)showEraserPicker:(id)sender
@@ -293,12 +298,16 @@ BOOL const SIZEPICKER = YES;
 
 - (IBAction)undo:(id)sender
 {
-    [self.undoManager undo];
+    if ([self.undoManager canUndo]) {
+        [self.undoManager undo];
+    }
 }
 
 - (IBAction)redo:(id)sender
 {
-    [self.undoManager redo];
+    if ([self.undoManager canRedo]) {
+        [self.undoManager redo];
+    }
 }
 
 - (IBAction)Save:(id)sender
@@ -319,6 +328,7 @@ BOOL const SIZEPICKER = YES;
                                               cancelButtonTitle:@"OK"
                                               otherButtonTitles:nil];
     [alertView show];
+    
 }
 
 #pragma mark -

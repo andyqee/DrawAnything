@@ -2,7 +2,7 @@
 //  Word.m
 //  DrawAnything
 //
-//  Created by andy on 4/1/14.
+//  Created by andy on 25/2/14.
 //  Copyright (c) 2014 andy. All rights reserved.
 //
 
@@ -11,8 +11,8 @@
 
 @implementation Word
 
+@dynamic grade;
 @dynamic name;
 @dynamic state;
-@dynamic grade;
 
 @end

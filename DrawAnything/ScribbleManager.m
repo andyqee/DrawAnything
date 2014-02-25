@@ -9,7 +9,7 @@
 #import "ScribbleManager.h"
 #import "Scribble.h"
 //#import "OpenScribbleCommand.h"
-#import "ScribbleThumbnailViewImageProxy.h"
+//#import "ScribbleThumbnailViewImageProxy.h"
 
 #define kScribbleDataPath [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/data"]
 #define kScribbleThumbnailPath [NSHomeDirectory() stringByAppendingPathComponent:@"Documents/thumbnails"]

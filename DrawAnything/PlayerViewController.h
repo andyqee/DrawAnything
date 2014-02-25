@@ -13,6 +13,8 @@
 @interface PlayerViewController : UIViewController
 
 @property (nonatomic, strong) DrawingRecord *drawingRecord;
+- (IBAction)share:(id)sender;
+- (IBAction)removeToTrash:(id)sender;
 
 @end
 

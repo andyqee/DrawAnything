@@ -44,10 +44,11 @@
 {
     [super viewDidLoad];
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+//    self.navigationController.navigationBar.translucent = NO;
     self.rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 //    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(startNewDrawing:)];
 //    self.navigationItem.rightBarButtonItem = addButton;
-    
+    self.tableView.rowHeight = 100;
     NSError *error;
     if (![[self fetchedResultsController] performFetch:&error]) {
         
@@ -92,8 +93,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
+//    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:@"Cell"];
+
     [self configureCell:cell atIndexPath:indexPath];
+
     return cell;
 }
 
@@ -121,14 +124,34 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
 {
+//    NSLog([NSString stringWithFormat:@"%d", indexPath.section]);
+    if (indexPath.section %2 == 1)
+		cell.backgroundColor = [UIColor colorWithRed:.9 green:.9 blue:.9 alpha:1];
+	else
+		cell.backgroundColor = [UIColor colorWithRed:.8 green:.8 blue:.8 alpha:0.5];
+
     DrawingRecord *record = [self.fetchedResultsController objectAtIndexPath:indexPath];
     cell.textLabel.text = record.title;
     
-//    NSString *imageName = [NSString stringWithFormat:@"image-%@.png", record.snapShotFilePath];
-//    NSString *imageName =  record.snapShotFilePath;
-//    NSString *imagePath = [self.rootPath stringByAppendingPathComponent:imageName];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    [dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    NSLocale *usLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    [dateFormatter setLocale:usLocale];
+    NSString *creationTime = [dateFormatter stringFromDate: record.creationTime];
+
+//    NSTimeInterval duration = [record.finishedTime timeIntervalSinceDate:record.creationTime];
+//    NSString *sDuration = ;
+    
+    NSString *detail = @"Created at :";
+    NSString *detail2 = @"It takes you ";
+//    [detail appendString:creationTime];
+    
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@\n%@",detail,creationTime,detail2];
+
     NSString *imagePath =  record.snapShotFilePath;
     cell.imageView.image = [UIImage imageWithContentsOfFile:imagePath];
+    
 }
 
 #pragma mark - Table view editing

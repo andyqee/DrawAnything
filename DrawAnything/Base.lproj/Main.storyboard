@@ -12,25 +12,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableFooterView" contentMode="redraw" text="" placeholder="Search: Gallery" showsCancelButton="YES" id="gIe-Hg-6Py">
-                            <rect key="frame" x="0.0" y="130" width="320" height="44"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <textInputTraits key="textInputTraits"/>
-                            <scopeButtonTitles>
-                                <string>Title</string>
-                                <string>Title</string>
-                            </scopeButtonTitles>
-                            <connections>
-                                <outlet property="delegate" destination="x7I-2n-2CF" id="tr9-Zx-fKU"/>
-                            </connections>
-                        </searchBar>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="iGD-mC-O4V">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" textLabel="WUp-vd-kAm" detailTextLabel="5yE-Oj-PZh" style="IBUITableViewCellStyleSubtitle" id="iGD-mC-O4V">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iGD-mC-O4V" id="j1G-GG-Zf5">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WUp-vd-kAm">
+                                            <rect key="frame" x="15" y="3" width="34" height="22"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5yE-Oj-PZh">
+                                            <rect key="frame" x="15" y="25" width="43" height="15"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                                 <connections>
                                     <segue destination="3DG-eL-Qpz" kind="push" identifier="playerSegue" id="Ale-0A-H36"/>
@@ -58,7 +62,6 @@
                 <searchDisplayController id="dah-zQ-7zc">
                     <connections>
                         <outlet property="delegate" destination="x7I-2n-2CF" id="2WH-U4-4J7"/>
-                        <outlet property="searchBar" destination="gIe-Hg-6Py" id="Urr-aR-pE3"/>
                         <outlet property="searchContentsController" destination="x7I-2n-2CF" id="XLE-Fy-xqu"/>
                         <outlet property="searchResultsDataSource" destination="x7I-2n-2CF" id="Ok0-69-uXl"/>
                         <outlet property="searchResultsDelegate" destination="x7I-2n-2CF" id="Dlf-es-01a"/>
@@ -79,11 +82,19 @@
                                 <rect key="frame" x="0.0" y="436" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
-                                    <barButtonItem systemItem="action" id="Lmi-Fd-yHI"/>
+                                    <barButtonItem systemItem="action" id="Lmi-Fd-yHI">
+                                        <connections>
+                                            <action selector="share:" destination="3DG-eL-Qpz" id="uqz-06-4OM"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="zxA-v0-ref"/>
                                     <barButtonItem systemItem="play" id="gmV-jV-3iK"/>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="WqL-1r-nmS"/>
-                                    <barButtonItem systemItem="trash" id="agQ-5Y-13f"/>
+                                    <barButtonItem systemItem="trash" id="agQ-5Y-13f">
+                                        <connections>
+                                            <action selector="removeToTrash:" destination="3DG-eL-Qpz" id="RQr-Kf-zox"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -149,7 +160,6 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
                                     <barButtonItem title="Pen" id="tlq-O0-bck">
-                                        <color key="tintColor" red="0.7137255072593689" green="0.90980398654937744" blue="0.40392160415649414" alpha="1" colorSpace="deviceRGB"/>
                                         <connections>
                                             <action selector="showSizePicker:" destination="vXZ-lx-hvc" id="1fb-Bo-Imo"/>
                                         </connections>
@@ -160,7 +170,6 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="橡皮" id="gLC-zg-4wr">
-                                        <color key="tintColor" red="0.71372550729999995" green="0.90980398650000005" blue="0.40392160420000001" alpha="1" colorSpace="deviceRGB"/>
                                         <connections>
                                             <action selector="showEraserPicker:" destination="vXZ-lx-hvc" id="A7z-AA-7X3"/>
                                         </connections>

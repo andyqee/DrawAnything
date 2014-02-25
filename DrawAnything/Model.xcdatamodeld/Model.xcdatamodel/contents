@@ -4,6 +4,7 @@
         <attribute name="creationTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="finishedTime" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="recordFilePath" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="score" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="snapShotFilePath" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="associate" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Word" syncable="YES"/>
