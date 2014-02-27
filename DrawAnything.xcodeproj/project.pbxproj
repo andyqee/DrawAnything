@@ -21,15 +21,12 @@
 		A1920065186820E000934DC1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1920047186820E000934DC1 /* UIKit.framework */; };
 		A192006D186820E000934DC1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A192006B186820E000934DC1 /* InfoPlist.strings */; };
 		A192006F186820E000934DC1 /* DrawAnythingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A192006E186820E000934DC1 /* DrawAnythingTests.m */; };
-		A192007B186972F100934DC1 /* Pen.m in Sources */ = {isa = PBXBuildFile; fileRef = A192007A186972F100934DC1 /* Pen.m */; };
-		A192007E186973D500934DC1 /* Eraser.m in Sources */ = {isa = PBXBuildFile; fileRef = A192007D186973D500934DC1 /* Eraser.m */; };
 		A192008118697C1900934DC1 /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A192008018697C1900934DC1 /* GalleryViewController.m */; };
 		A192008418697C4A00934DC1 /* PlayerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A192008318697C4A00934DC1 /* PlayerViewController.m */; };
 		A192008718697CDF00934DC1 /* DrawingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A192008618697CDF00934DC1 /* DrawingViewController.m */; };
 		A192008918697EAD00934DC1 /* WordsLib.plist in Resources */ = {isa = PBXBuildFile; fileRef = A192008818697EAD00934DC1 /* WordsLib.plist */; };
 		A19B401718AD161B006E3109 /* BasePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A19B401618AD161B006E3109 /* BasePickerView.m */; };
 		A1A5B1D21875437900AB2E26 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A1A5B1D01875437900AB2E26 /* Model.xcdatamodeld */; };
-		A1A91283186F0B80006CEE8D /* WordManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A91282186F0B80006CEE8D /* WordManager.m */; };
 		A1A91286186F13AA006CEE8D /* WordHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A1A91285186F13AA006CEE8D /* WordHelper.m */; };
 		A1AC0C3218BCA181001606B4 /* Word.m in Sources */ = {isa = PBXBuildFile; fileRef = A1AC0C3118BCA181001606B4 /* Word.m */; };
 		A1AC0C3518BCA181001606B4 /* DrawingRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = A1AC0C3418BCA181001606B4 /* DrawingRecord.m */; };
@@ -42,6 +39,7 @@
 		A1B9F26E1886BD2300689E5D /* Scribble.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B9F26D1886BD2300689E5D /* Scribble.m */; };
 		A1B9F2711886BD5400689E5D /* ScribbleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B9F2701886BD5400689E5D /* ScribbleManager.m */; };
 		A1B9F2741886BDEC00689E5D /* ScribbleMemento.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B9F2731886BDEC00689E5D /* ScribbleMemento.m */; };
+		A1CE937818BEE8CD000F22BF /* DXAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = A1CE937718BEE8CD000F22BF /* DXAlertView.m */; };
 		A1FD64F8186B10A70057978D /* WordLib.m in Sources */ = {isa = PBXBuildFile; fileRef = A1FD64F7186B10A70057978D /* WordLib.m */; };
 /* End PBXBuildFile section */
 
@@ -75,10 +73,6 @@
 		A192006A186820E000934DC1 /* DrawAnythingTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DrawAnythingTests-Info.plist"; sourceTree = "<group>"; };
 		A192006C186820E000934DC1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A192006E186820E000934DC1 /* DrawAnythingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DrawAnythingTests.m; sourceTree = "<group>"; };
-		A1920079186972F100934DC1 /* Pen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pen.h; sourceTree = "<group>"; };
-		A192007A186972F100934DC1 /* Pen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pen.m; sourceTree = "<group>"; };
-		A192007C186973D500934DC1 /* Eraser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Eraser.h; sourceTree = "<group>"; };
-		A192007D186973D500934DC1 /* Eraser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Eraser.m; sourceTree = "<group>"; };
 		A192007F18697C1900934DC1 /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryViewController.h; sourceTree = "<group>"; };
 		A192008018697C1900934DC1 /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewController.m; sourceTree = "<group>"; };
 		A192008218697C4A00934DC1 /* PlayerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayerViewController.h; sourceTree = "<group>"; };
@@ -89,8 +83,6 @@
 		A19B401518AD161B006E3109 /* BasePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasePickerView.h; sourceTree = "<group>"; };
 		A19B401618AD161B006E3109 /* BasePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasePickerView.m; sourceTree = "<group>"; };
 		A1A5B1D11875437900AB2E26 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
-		A1A91281186F0B80006CEE8D /* WordManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordManager.h; sourceTree = "<group>"; };
-		A1A91282186F0B80006CEE8D /* WordManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordManager.m; sourceTree = "<group>"; };
 		A1A91284186F13AA006CEE8D /* WordHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordHelper.h; sourceTree = "<group>"; };
 		A1A91285186F13AA006CEE8D /* WordHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordHelper.m; sourceTree = "<group>"; };
 		A1AC0C3018BCA181001606B4 /* Word.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Word.h; sourceTree = "<group>"; };
@@ -118,6 +110,8 @@
 		A1B9F2721886BDEC00689E5D /* ScribbleMemento.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScribbleMemento.h; sourceTree = "<group>"; };
 		A1B9F2731886BDEC00689E5D /* ScribbleMemento.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScribbleMemento.m; sourceTree = "<group>"; };
 		A1B9F2751887BB9400689E5D /* ScribbleSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScribbleSource.h; sourceTree = "<group>"; };
+		A1CE937618BEE8CD000F22BF /* DXAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DXAlertView.h; sourceTree = "<group>"; };
+		A1CE937718BEE8CD000F22BF /* DXAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DXAlertView.m; sourceTree = "<group>"; };
 		A1FD64F6186B10A70057978D /* WordLib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WordLib.h; sourceTree = "<group>"; };
 		A1FD64F7186B10A70057978D /* WordLib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WordLib.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,17 +147,6 @@
 				A1283D1318A60CAB0022BC0A /* CoreDataManager.m */,
 			);
 			name = CoreDataManager;
-			sourceTree = "<group>";
-		};
-		A12B617F188CB65500F2E007 /* toolbarItemModel */ = {
-			isa = PBXGroup;
-			children = (
-				A1920079186972F100934DC1 /* Pen.h */,
-				A192007A186972F100934DC1 /* Pen.m */,
-				A192007C186973D500934DC1 /* Eraser.h */,
-				A192007D186973D500934DC1 /* Eraser.m */,
-			);
-			name = toolbarItemModel;
 			sourceTree = "<group>";
 		};
 		A1920037186820E000934DC1 = {
@@ -247,11 +230,8 @@
 		A19200781868273F00934DC1 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A12B617F188CB65500F2E007 /* toolbarItemModel */,
 				A1FD64F6186B10A70057978D /* WordLib.h */,
 				A1FD64F7186B10A70057978D /* WordLib.m */,
-				A1A91281186F0B80006CEE8D /* WordManager.h */,
-				A1A91282186F0B80006CEE8D /* WordManager.m */,
 				A1A91284186F13AA006CEE8D /* WordHelper.h */,
 				A1A91285186F13AA006CEE8D /* WordHelper.m */,
 				A1B9F2611886280A00689E5D /* Dot.h */,
@@ -332,6 +312,8 @@
 				A1B9F25F1884CACE00689E5D /* DrawingCanvas.m */,
 				A19B401518AD161B006E3109 /* BasePickerView.h */,
 				A19B401618AD161B006E3109 /* BasePickerView.m */,
+				A1CE937618BEE8CD000F22BF /* DXAlertView.h */,
+				A1CE937718BEE8CD000F22BF /* DXAlertView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -443,6 +425,7 @@
 				A1B9F26E1886BD2300689E5D /* Scribble.m in Sources */,
 				A1A5B1D21875437900AB2E26 /* Model.xcdatamodeld in Sources */,
 				A192008718697CDF00934DC1 /* DrawingViewController.m in Sources */,
+				A1CE937818BEE8CD000F22BF /* DXAlertView.m in Sources */,
 				A1AEEC0018B4E06B000BEDA1 /* XMLParser.m in Sources */,
 				A192008418697C4A00934DC1 /* PlayerViewController.m in Sources */,
 				A1B9F26618865BC600689E5D /* Stroke.m in Sources */,
@@ -450,14 +433,11 @@
 				A1B9F2631886280A00689E5D /* Dot.m in Sources */,
 				A1AC0C3518BCA181001606B4 /* DrawingRecord.m in Sources */,
 				A1920050186820E000934DC1 /* main.m in Sources */,
-				A192007E186973D500934DC1 /* Eraser.m in Sources */,
 				A1B9F2601884CACE00689E5D /* DrawingCanvas.m in Sources */,
 				A1AC0C3218BCA181001606B4 /* Word.m in Sources */,
 				A1A91286186F13AA006CEE8D /* WordHelper.m in Sources */,
-				A1A91283186F0B80006CEE8D /* WordManager.m in Sources */,
 				A1B9F2741886BDEC00689E5D /* ScribbleMemento.m in Sources */,
 				A1B9F2711886BD5400689E5D /* ScribbleManager.m in Sources */,
-				A192007B186972F100934DC1 /* Pen.m in Sources */,
 				A192008118697C1900934DC1 /* GalleryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

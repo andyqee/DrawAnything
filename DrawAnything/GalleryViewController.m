@@ -7,7 +7,7 @@
 //
 
 #import "GalleryViewController.h"
-#import "WordManager.h"
+//#import "WordManager.h"
 #import "WordHelper.h"
 #import "DrawingRecord.h"
 
@@ -43,11 +43,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-//    self.navigationController.navigationBar.translucent = NO;
     self.rootPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-//    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(startNewDrawing:)];
-//    self.navigationItem.rightBarButtonItem = addButton;
     self.tableView.rowHeight = 100;
     NSError *error;
     if (![[self fetchedResultsController] performFetch:&error]) {
@@ -277,8 +273,6 @@
         DrawingViewController *drawingViewController = (DrawingViewController *)[segue destinationViewController];
         drawingViewController.delegate = self;
         NSManagedObjectContext *addingContext = [CoreDataManager defaultContext];
-//        DrawingRecord *newDrawingRecord = (DrawingRecord *)[NSEntityDescription insertNewObjectForEntityForName:@"DrawingRecord" inManagedObjectContext:addingContext];
-//        drawingViewController.drawingRecord = newDrawingRecord;
         drawingViewController.managedObjectContext = addingContext;
     }
     else if ([[segue identifier] isEqualToString:@"playerSegue"])

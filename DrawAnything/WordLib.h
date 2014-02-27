@@ -12,12 +12,8 @@
 @interface WordLib : NSObject
 
 - (id)initWithWordLibPlistAtURL:(NSURL*) wordLibURL;
-
-- (NSString*)pickUnusedWord;
-
 - (void)setStatusOfTargetWord:(NSString*) targetWord;
 - (void)resetStatusOfAllWord;
-
 
 @property (readonly) NSUInteger numbersOfTotalWord;
 @property (readonly) NSUInteger numbersOfUsedWord;

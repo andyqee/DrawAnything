@@ -58,11 +58,36 @@
 
 
 
-- (IBAction)share:(id)sender {
-    
+- (IBAction)share:(id)sender
+{
+    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Share" contentText:@"Share with your sina weibo" leftButtonTitle:@"cancel" rightButtonTitle:@"OK"];
+    [alert show];
+    alert.leftBlock = ^() {
+        NSLog(@"left button clicked");
+    };
+    alert.rightBlock = ^() {
+        NSLog(@"right button clicked");
+    };
+    alert.dismissBlock = ^() {
+        NSLog(@"Do something interesting after dismiss block");
+    };
+  
 }
 
-- (IBAction)removeToTrash:(id)sender {
+- (IBAction)removeToTrash:(id)sender
+{
+    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Attention!" contentText:@"Do you want to delete the masterpiece" leftButtonTitle:@"cancel" rightButtonTitle:@"delete"];
+    [alert show];
+    alert.leftBlock = ^() {
+        NSLog(@"left button clicked");
+    };
+    alert.rightBlock = ^() {
+        NSLog(@"right button clicked");
+    };
+    alert.dismissBlock = ^() {
+        NSLog(@"Do something interesting after dismiss block");
+    };
+
 }
 
 @end

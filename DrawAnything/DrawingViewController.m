@@ -55,6 +55,7 @@ BOOL const SIZEPICKER = YES;
 @end
 
 @implementation DrawingViewController
+
 @synthesize wordList;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -322,24 +323,20 @@ BOOL const SIZEPICKER = YES;
     [self updateWordState];
     [self addDrawingRecord];
     [self saveContext];
-    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"The snapshot of scribble is saved"
-                                                        message:nil
-                                                       delegate:nil
-                                              cancelButtonTitle:@"OK"
-                                              otherButtonTitles:nil];
-    [alertView show];
     
+    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Congratulations" contentText:@"You make 99 points! " leftButtonTitle:nil rightButtonTitle:@"OK"];
+    [alert show];
+    alert.rightBlock = ^() {
+        NSLog(@"right button clicked");
+    };
+    alert.dismissBlock = ^() {
+        NSLog(@"Do something interesting after dismiss block");
+    };
+    [self dismissViewControllerAnimated:YES completion:nil];
+
 }
 
 #pragma mark -
-
-
-#warning waiting to implement
-
-- (void)deleteCachedDrawing
-{
-    
-}
 
 - (void)updateWordState
 {
@@ -410,13 +407,13 @@ BOOL const SIZEPICKER = YES;
 
 #pragma mark -
 
-- (IBAction)skipAction:(id)sender
-{
-    [self deleteCachedDrawing];
-    [self updateWordState];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+//- (IBAction)skipAction:(id)sender
+//{
+////    [self deleteCachedDrawing];
+//    [self updateWordState];
+//    
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
 
 //- (IBAction)doneAction:(id)sender
 //{
@@ -448,4 +445,10 @@ BOOL const SIZEPICKER = YES;
 {
 
 }
+
+- (void)dealloc
+{
+    [self.scribble removeObserver:self forKeyPath:@"mark"];
+}
+
 @end

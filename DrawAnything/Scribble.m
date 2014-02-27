@@ -63,6 +63,7 @@
 
 #pragma mark -
 #pragma mark Methods for archive
+
 //- (id)initWithMemento:(ScribbleMemento *)aMemento
 //{
 //    

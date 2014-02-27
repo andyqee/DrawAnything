@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "WordManager.h"
+//#import "WordManager.h"
 #import "WordHelper.h"
 
 #import "PlayerViewController.h"
 #import "CoreDataManager.h"
 #import "BasePickerView.h"
+
 
 @protocol DrawingViewControllerDelegate;
 
