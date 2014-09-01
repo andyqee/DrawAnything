@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-//#import "WordManager.h"
 #import "WordHelper.h"
 
 #import "PlayerViewController.h"
@@ -24,11 +23,13 @@
 
 - (NSInvocation *) drawScribbleInvocation;
 - (NSInvocation *) undrawScribbleInvocation;
-- (void) executeInvocation:(NSInvocation *)invocation withUndoInvocation:(NSInvocation *)undoInvocation;
-- (void) unexecuteInvocation:(NSInvocation *)invocation withRedoInvocation:(NSInvocation *)redoInvocation;
+- (void) executeInvocation:(NSInvocation *)invocation
+        withUndoInvocation:(NSInvocation *)undoInvocation;
+
+- (void) unexecuteInvocation:(NSInvocation *)invocation
+          withRedoInvocation:(NSInvocation *)redoInvocation;
 
 - (IBAction)showSizePicker:(id)sender;
-
 - (IBAction)showColorPicker:(id)sender;
 - (IBAction)showEraserPicker:(id)sender;
 

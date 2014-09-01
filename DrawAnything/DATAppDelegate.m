@@ -66,10 +66,12 @@
 - (NSArray*)fetchDataFromDBWithEntityName: (NSString*)entityName
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:[NSEntityDescription entityForName:entityName inManagedObjectContext:self.managedObjectContext]];
+    [request setEntity:[NSEntityDescription entityForName:entityName
+                                   inManagedObjectContext:self.managedObjectContext]];
 
     NSError *error = nil;
-    NSArray *results = [self.managedObjectContext executeFetchRequest:request error:&error];
+    NSArray *results = [self.managedObjectContext executeFetchRequest:request
+                                                                error:&error];
     return results;
 }
 
@@ -91,16 +93,15 @@
     if (!temp) {
         NSLog(@"Error reading plist: %@, format: %d", errorDesc, format);
     }
-    
     return [NSMutableArray arrayWithArray:[temp objectForKey:@"WordList"]];
-    
 }
 
 - (void)insertDataToDB:(NSArray*)words
 {
     NSInteger i = 0;
     for (id wordCell in words) {
-        Word *newWord = [NSEntityDescription insertNewObjectForEntityForName:@"Word" inManagedObjectContext:self.managedObjectContext];
+        Word *newWord = [NSEntityDescription insertNewObjectForEntityForName:@"Word"
+                                                      inManagedObjectContext:self.managedObjectContext];
         newWord.name = (NSString*)wordCell;
         newWord.state = [NSNumber numberWithInteger:Fresh];
         newWord.grade = [NSNumber numberWithInteger:i++];
@@ -114,7 +115,8 @@
 
 - (NSString*)getPlistFilePath
 {
-    NSString* wordLibPath = [[NSBundle mainBundle] pathForResource:@"WordsLib" ofType:@"plist"];
+    NSString* wordLibPath = [[NSBundle mainBundle] pathForResource:@"WordsLib"
+                                                            ofType:@"plist"];
     return wordLibPath;
 }
          

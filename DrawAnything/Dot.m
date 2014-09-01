@@ -25,7 +25,8 @@
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    Dot *cloneDot = [[[self class] allocWithZone:zone] initWithLocation:self.location TimeStamp:self.timeInterval];
+    Dot *cloneDot = [[[self class] allocWithZone:zone] initWithLocation:self.location
+                                                              TimeStamp:self.timeInterval];
     cloneDot.Color = [UIColor colorWithCGColor:[self.color CGColor]];
     cloneDot.Size = self.size;
     

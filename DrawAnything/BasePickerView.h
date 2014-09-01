@@ -20,7 +20,6 @@
 
 @property (nonatomic, weak) UIView *parentView;
 
-//- (id)initWithPoint:(CGPoint)point radius:(int)radiusValue inView:(UIView *)inView buttonType:(BOOL)Type;
 - (id)initWithPoint:(CGPoint)point radius:(int)radiusValue inView:(UIView *)inView;
 -(void)showColorPickerBubble;
 - (void)showSizePickerBubble:(UIColor *)strokeColor;

@@ -35,9 +35,6 @@
         NSURL *xmlURL = [NSURL fileURLWithPath:pathToFile];
         _addressParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
         _addressParser.delegate = self;
-//        [_addressParser setShouldProcessNamespaces:NO];
-//        [_addressParser setShouldReportNamespacePrefixes:NO];
-//        [_addressParser setShouldResolveExternalEntities:NO];
         
     }
     return  self;
@@ -53,9 +50,12 @@
 {
     NSLog(@"end parse");
 }
-// sent when the parser has completed parsing. If this is encountered, the parse was successful.
 
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict
+- (void)parser:(NSXMLParser *)parser
+    didStartElement:(NSString *)elementName
+       namespaceURI:(NSString *)namespaceURI
+      qualifiedName:(NSString *)qName
+         attributes:(NSDictionary *)attributeDict
 {
     if ([elementName isEqualToString:@"array"]) {
         self.words = [[NSMutableArray alloc] init];
@@ -76,13 +76,12 @@
         [self.currentParsedCharacterData appendString:string];
     NSLog(@"found Chracters: %@",[NSString stringWithString: self.currentParsedCharacterData]);
     
-//    if ([string isEqualToString:@"string"]) {
-//        [self.words insertObject:string atIndex:self.currentIndex];
-//        self.currentIndex++;
-//    }
 }
 
-- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
+- (void)parser:(NSXMLParser *)parser
+ didEndElement:(NSString *)elementName
+  namespaceURI:(NSString *)namespaceURI
+ qualifiedName:(NSString *)qName
 {
     if ([elementName isEqualToString:@"string"]) {
         [self.words insertObject:self.currentParsedCharacterData atIndex:self.currentIndex];

@@ -62,7 +62,6 @@ BOOL const SIZEPICKER = YES;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        //@TODO
     }
     return self;
 }
@@ -75,7 +74,6 @@ BOOL const SIZEPICKER = YES;
     _cur = self.wordList.count - 1;
     NSString *title = [self pickNextFromWordList];
     _navigationTitle = title;
-  //  self.navigationController.title = title;
     self.title = _navigationTitle;
 
     [self createCanvas];
@@ -93,15 +91,16 @@ BOOL const SIZEPICKER = YES;
 
     CGRect frame = CGRectMake(0, 0,width,height);
     self.canvas = [[DrawingCanvas alloc] initWithFrame:frame];
- //   [self.canvas setBackgroundColor:[UIColor grayColor]];  //
     [self.canvasViewContainer addSubview:self.canvas];
 }
 
 - (void)setUpScribble
 {
-   // self.scribble = [[Scribble alloc]init];
     self.scribble = [Scribble new];
-    [self.scribble addObserver:self forKeyPath:@"mark" options:NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew context:nil];
+    [self.scribble addObserver:self
+                    forKeyPath:@"mark" options:
+     NSKeyValueObservingOptionInitial|NSKeyValueObservingOptionNew
+                       context:nil];
 }
 
 - (void)setUpDefaultStroke
@@ -126,10 +125,13 @@ BOOL const SIZEPICKER = YES;
 - (void)loadWordList
 {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Word"
+                                              inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
     
-    NSSortDescriptor *gradeDescriptor = [[NSSortDescriptor alloc] initWithKey:@"grade" ascending:YES];
+    NSSortDescriptor *gradeDescriptor = [[NSSortDescriptor alloc]
+                                         initWithKey:@"grade"
+                                         ascending:YES];
     NSArray *sortDescriptors = @[gradeDescriptor];
     [fetchRequest setSortDescriptors:sortDescriptors];
     
@@ -142,7 +144,8 @@ BOOL const SIZEPICKER = YES;
     if (array != nil) {
         wordList = array;
     } else {
-        NSLog(@"Unresolved error : fail to load word from core data %@, %@", error, [error userInfo]);
+        NSLog(@"Unresolved error : fail to load word from core data %@, %@",
+              error, [error userInfo]);
     }
 }
 
@@ -214,7 +217,10 @@ BOOL const SIZEPICKER = YES;
 
 #pragma mark - Scribble observer method
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context
 {
     if (object == self.scribble && [keyPath isEqualToString:@"mark"]) {
         id <Mark> mark = [change objectForKey:NSKeyValueChangeNewKey];
@@ -249,17 +255,21 @@ BOOL const SIZEPICKER = YES;
 
 #pragma mark - Invocation
 
-- (void)executeInvocation:(NSInvocation *)invocation withUndoInvocation:(NSInvocation *)undoInvocation
+- (void)executeInvocation:(NSInvocation *)invocation
+       withUndoInvocation:(NSInvocation *)undoInvocation
 {
     [invocation retainArguments];
-    [[self.undoManager prepareWithInvocationTarget:self]unexecuteInvocation:undoInvocation withRedoInvocation:invocation];
+    [[self.undoManager prepareWithInvocationTarget:self] unexecuteInvocation:undoInvocation
+                                                          withRedoInvocation:invocation];
     [invocation invoke];
 }
 
-- (void)unexecuteInvocation:(NSInvocation *)invocation withRedoInvocation:(NSInvocation *)redoInvocation;
+- (void)unexecuteInvocation:(NSInvocation *)invocation
+         withRedoInvocation:(NSInvocation *)redoInvocation;
 {
     [invocation retainArguments];
-    [[self.undoManager prepareWithInvocationTarget:self]executeInvocation:redoInvocation withUndoInvocation:invocation];
+    [[self.undoManager prepareWithInvocationTarget:self] executeInvocation:redoInvocation
+                                                        withUndoInvocation:invocation];
     [invocation invoke];
 }
 
@@ -272,7 +282,9 @@ BOOL const SIZEPICKER = YES;
         _pickerView = nil;
     
     }else{
-        _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center radius:radius inView:self.canvas];
+        _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center
+                                                    radius:radius
+                                                    inView:self.canvas];
         _pickerView.delegate = self;
         [_pickerView showSizePickerBubble:_strokeColor];
     }
@@ -284,7 +296,9 @@ BOOL const SIZEPICKER = YES;
         [_pickerView hide];
         _pickerView = nil;
     }else{
-        _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center radius:radius inView:self.canvas];
+        _pickerView = [[BasePickerView alloc]initWithPoint:self.view.center
+                                                    radius:radius
+                                                    inView:self.canvas];
         _pickerView.delegate = self;
         [_pickerView showColorPickerBubble];
     }
@@ -324,7 +338,10 @@ BOOL const SIZEPICKER = YES;
     [self addDrawingRecord];
     [self saveContext];
     
-    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Congratulations" contentText:@"You make 99 points! " leftButtonTitle:nil rightButtonTitle:@"OK"];
+    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Congratulations"
+                                                contentText:@"You make 99 points! "
+                                            leftButtonTitle:nil
+                                           rightButtonTitle:@"OK"];
     [alert show];
     alert.rightBlock = ^() {
         NSLog(@"right button clicked");
@@ -341,7 +358,8 @@ BOOL const SIZEPICKER = YES;
 - (void)updateWordState
 {
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:[NSEntityDescription entityForName:@"Word" inManagedObjectContext:self.managedObjectContext]];
+    [request setEntity:[NSEntityDescription entityForName:@"Word"
+                                   inManagedObjectContext:self.managedObjectContext]];
     
     NSError *error = nil;
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", self.navigationTitle];
@@ -356,7 +374,8 @@ BOOL const SIZEPICKER = YES;
 
 - (void)addDrawingRecord
 {
-    DrawingRecord *drawingRecord = [NSEntityDescription insertNewObjectForEntityForName:@"DrawingRecord" inManagedObjectContext:self.managedObjectContext];
+    DrawingRecord *drawingRecord = [NSEntityDescription insertNewObjectForEntityForName:@"DrawingRecord"
+                                                                 inManagedObjectContext:self.managedObjectContext];
     drawingRecord.creationTime = self.startTime;
     drawingRecord.finishedTime = self.endTime;
     drawingRecord.recordFilePath = self.recordFilePath;
@@ -406,20 +425,6 @@ BOOL const SIZEPICKER = YES;
 }
 
 #pragma mark -
-
-//- (IBAction)skipAction:(id)sender
-//{
-////    [self deleteCachedDrawing];
-//    [self updateWordState];
-//    
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
-
-//- (IBAction)doneAction:(id)sender
-//{
-//    [self saveDrawing];
-//}
-
 // We do not support auto-rotation
 - (BOOL)shouldAutorotate
 {

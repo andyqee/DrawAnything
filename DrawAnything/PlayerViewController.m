@@ -32,35 +32,29 @@
     NSData *imageData = [[NSData alloc]initWithContentsOfFile:self.drawingRecord.snapShotFilePath];
     UIImage *snapShotImage = [[UIImage alloc]initWithData:imageData];
     UIImageView *imageView = [[UIImageView alloc]initWithImage:snapShotImage];
-    imageView.frame = CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - self.buttomToolbar.bounds.size.height);
-   // imageView.frame = self.view.frame;
+    CGFloat imageViewWidth = self.view.bounds.size.height - self.buttomToolbar.bounds.size.height;
+    imageView.frame = CGRectMake(0, 0, self.view.bounds.size.width, imageViewWidth);
     [self.uiView addSubview:imageView];
-    
     self.imageView = imageView;
-    
     [self.view bringSubviewToFront:self.buttomToolbar];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //Register for when the save window appears so the keyboard won't conflict with it.
     [super viewWillAppear:animated];
-    
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-
     
 }
 
-
-
 - (IBAction)share:(id)sender
 {
-    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Share" contentText:@"Share with your sina weibo" leftButtonTitle:@"cancel" rightButtonTitle:@"OK"];
+    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Share"
+                                                contentText:@"Share with your sina weibo"
+                                            leftButtonTitle:@"cancel"
+                                           rightButtonTitle:@"OK"];
     [alert show];
     alert.leftBlock = ^() {
         NSLog(@"left button clicked");
@@ -76,7 +70,10 @@
 
 - (IBAction)removeToTrash:(id)sender
 {
-    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Attention!" contentText:@"Do you want to delete the masterpiece" leftButtonTitle:@"cancel" rightButtonTitle:@"delete"];
+    DXAlertView *alert = [[DXAlertView alloc] initWithTitle:@"Attention!"
+                                                contentText:@"Do you want to delete the masterpiece"
+                                            leftButtonTitle:@"cancel"
+                                           rightButtonTitle:@"delete"];
     [alert show];
     alert.leftBlock = ^() {
         NSLog(@"left button clicked");

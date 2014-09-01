@@ -18,6 +18,4 @@
 @property (readonly) NSUInteger numbersOfTotalWord;
 @property (readonly) NSUInteger numbersOfUsedWord;
 
-
-
 @end
